@@ -1,0 +1,41 @@
+serverIp: "127.0.0.1" # Your public server IP goes here
+
+# The port the resource pack will be hosted on. When the plugin launches, an HTTP server is starting on that port.
+# It should be opened on the machine so that players can download the resource pack.
+webServerPort: 5000
+
+# Whether a player will be force prompted to use the resource pack.
+# If the player declines, he/she will be disconnected from the server
+enforceResourcePack: false
+
+replaceInAnvil: true # Replace emojis in anvils? (e.g., when renaming items).
+replaceInSigns: true # Replace emojis in signs? (e.g., after editing them).
+replaceInCommands: true # Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands).
+
+# Whether a text with the emoji name will appear when you put your mouse cursor over emoji in the chat.
+# This feature MAY NOT WORK if you use chat formatters like "VaultChatFormatter"
+emojiHoverEnabled: true
+emojiHoverColor: "#AAAAAA" # The color of the text in hover
+
+# Chat suggestions modes (when typing a message in chat and hitting TAB on keyboard):
+# NONE - No suggestions
+# TEMPLATES - Suggest templates (e.g.: ":sob:")
+# ACTUAL - Suggest actual emoji (e.g.: "😭")
+suggestionMode: "TEMPLATES"
+
+# Should the plugin merge the "emojis.zip" resource pack with the server resource pack?
+# If "true", you should put your resource pack in the "/plugins/ImageEmojis/" directory.
+# The output will be generated within the "emojis.zip" archive
+mergeWithServerResourcePack: false
+mergeServerResourcePackName: "serverResourcePack.zip" # Name of the resource pack to merge "emojis.zip" with
+
+messages:
+  "resource-pack-description": "&nImage Emojis"
+  "only-players": "&cOnly players can use this command!"
+  "info-content": "&#F4CA16[ImageEmojis] &#B3BEC4There are currently &#D8E5EC&n%s&r&#B3BEC4 emojis!
+    \n &#D8E5EC&n/emojis list&r&#B3BEC4 - see the emojis list.
+    \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during current game session."
+  "resource-pack-up-to-date": "&#F4CA16[ImageEmojis] &#B3BEC4The resource pack is now up to date!"
+  "reloaded": "&#F4CA16[ImageEmojis] &#B3BEC4Reloaded!"
+  "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist or you don't have enough permissions."
+  "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."

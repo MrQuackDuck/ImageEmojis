@@ -1,0 +1,23 @@
+name: ImageEmojis
+version: '${project.version}'
+main: mrquackduck.imageemojis.ImageEmojisPlugin
+api-version: '1.19'
+author: 'MrQuackDuck'
+
+commands:
+  emojis:
+    description: Chat Image Emojis command
+    aliases:
+      - ie
+      - imageemojis
+
+permissions:
+  imageemojis.admin:
+    description: Allows a player to reload the plugin
+    default: op
+  imageemojis.update:
+    description: Whether a player can fetch the latest version of the resource pack during current session
+    default: true
+  imageemojis.list:
+    description: Whether a player can open a book with all emojis
+    default: true

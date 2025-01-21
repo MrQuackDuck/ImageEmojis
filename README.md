@@ -46,6 +46,7 @@ Aliases: `/ie`, `/imageemojis`.
 > You should disable your resource pack in the `server.properties` if you enabled it earlier.
 - **Sign replacement**: you can enable/disable replacement of emoji templates on signs.
 - **Anvil replacement**: you can enable/disable replacement of emoji templates when renaming an item in the anvil.
+- **Command replacement**: you can enable/disable replacement of emoji templates when sending commands. By default, the plugin automatically preprocesses all commands sent by players and changes emoji templates to actual emojis.
 
 ## 📄 Default config
 > [!CAUTION]

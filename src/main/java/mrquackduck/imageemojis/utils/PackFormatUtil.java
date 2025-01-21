@@ -9,21 +9,21 @@ import static java.util.Map.entry;
 public class PackFormatUtil {
     public static int getPackFormat(String version) {
         Map<String, Integer> versionToPackFormat = Map.ofEntries(
-                entry("1.13–1.14.4", 4),
-                entry("1.15–1.16.1", 5),
-                entry("1.16.2–1.16.5", 6),
-                entry("1.17–1.17.1", 7),
-                entry("1.18–1.18.1", 8),
-                entry("1.18.2", 9),
-                entry("1.19–1.19.3", 10),
-                entry("1.19.4", 12),
-                entry("1.20–1.20.1", 15),
-                entry("1.20.2", 18),
-                entry("1.20.3–1.20.4", 26),
-                entry("1.20.5–1.20.6", 41),
-                entry("1.21–1.21.1", 48),
-                entry("1.21.2–1.21.3", 57),
-                entry("1.21.4", 61)
+            entry("1.13–1.14.4", 4),
+            entry("1.15–1.16.1", 5),
+            entry("1.16.2–1.16.5", 6),
+            entry("1.17–1.17.1", 7),
+            entry("1.18–1.18.2", 8),
+            entry("1.19–1.19.2", 9),
+            entry("1.19.3", 12),
+            entry("1.19.4", 13),
+            entry("1.20–1.20.1", 15),
+            entry("1.20.2", 18),
+            entry("1.20.3–1.20.4", 22),
+            entry("1.20.5–1.20.6", 32),
+            entry("1.21–1.21.1", 34),
+            entry("1.21.2–1.21.3", 42),
+            entry("1.21.4", 46)
         );
 
         String cleanVersion = cleanVersion(version);

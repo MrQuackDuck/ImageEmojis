@@ -8,12 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class EmojiRepository {
@@ -37,18 +32,6 @@ public class EmojiRepository {
         List<EmojiData> emojis = new ArrayList<>();
         if (files == null) return emojis;
 
-        // Sort files by creation date
-        Arrays.sort(files, (f1, f2) -> {
-            try {
-                BasicFileAttributes attr1 = Files.readAttributes(f1.toPath(), BasicFileAttributes.class);
-                BasicFileAttributes attr2 = Files.readAttributes(f2.toPath(), BasicFileAttributes.class);
-                return attr1.creationTime().compareTo(attr2.creationTime());
-            } catch (IOException e) {
-                logger.warning("Failed to read file attributes: " + e.getMessage());
-                return 0;
-            }
-        });
-
         long rangeStart = CharUtil.fromUtf8Code("\\uEff2");
         long rangeEnd = rangeStart + 2000;
 
@@ -59,8 +42,8 @@ public class EmojiRepository {
                 BufferedImage image = ImageIO.read(file);
                 if (image == null) continue;
 
-                String name = file.getName().substring(0, file.getName().lastIndexOf('.'));
-                String fileName = file.getName();
+                String name = file.getName().substring(0, file.getName().lastIndexOf('.')).toLowerCase();
+                String fileName = file.getName().toLowerCase();
 
                 // Generating a hash based on the file name
                 String fileNameHash = CharUtil.generateSHA256(fileName);
@@ -77,6 +60,9 @@ public class EmojiRepository {
                 logger.warning("Failed to read image file: " + file.getName());
             }
         }
+
+        // Sort emojis by name
+        emojis.sort(Comparator.comparing(EmojiData::getName));
 
         cachedEmojis = emojis;
         return emojis;

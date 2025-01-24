@@ -13,11 +13,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.tchristofferson.configupdater.ConfigUpdater;
 
 import static mrquackduck.imageemojis.utils.EnvironmentUtil.isPaper;
 import static mrquackduck.imageemojis.utils.EnvironmentUtil.isSpigot;
@@ -97,6 +97,13 @@ public final class ImageEmojisPlugin extends JavaPlugin {
     private void start() {
         // Save default configuration
         saveDefaultConfig();
+        File configFile = new File(getDataFolder(), "config.yml");
+
+        // Updating the config with missing key-pairs (and removing redundant ones if present)
+        try { ConfigUpdater.update(this, "config.yml", configFile, new ArrayList<>()); }
+        catch (IOException e) { e.printStackTrace(); }
+
+        reloadConfig();
 
         // Saving the default pack icon if it doesn't exist
         saveDefaultPackPng();
@@ -170,8 +177,6 @@ public final class ImageEmojisPlugin extends JavaPlugin {
                 ImageEmojisPlugin.messages.put(pair.getKey(), pair.getValue().toString());
             }
         }
-
-        saveDefaultConfig();
     }
 
     // Returns a message from the config by key

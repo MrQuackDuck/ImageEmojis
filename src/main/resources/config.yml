@@ -5,27 +5,27 @@ serverIp: "127.0.0.1" # Your public server IP goes here
 webServerPort: 5000
 
 # Whether a player will be force prompted to use the resource pack.
-# If the player declines, he/she will be disconnected from the server
+# If the player declines, he/she will be disconnected from the server.
 enforceResourcePack: false
 
 replaceInAnvil: true # Replace emojis in anvils? (e.g., when renaming items).
 replaceInSigns: true # Replace emojis in signs? (e.g., after editing them).
 replaceInCommands: true # Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands).
 
-# Whether a text with the emoji name will appear when you put your mouse cursor over emoji in the chat.
-# This feature MAY NOT WORK if you use chat formatters like "VaultChatFormatter"
-emojiHoverEnabled: true
+# This feature MAY NOT WORK if you use chat formatters such as "VaultChatFormatter" or "LPC" due to their incompatibility with Paper Components.
+# If you are looking for a simple chat formatter that doesn't break messages, you can consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
+emojiHoverEnabled: true # Whether an emoji name will appear when you put your cursor over the emoji symbol in the chat
 emojiHoverColor: "#AAAAAA" # The color of the text in hover
 
-# Chat suggestions modes (when typing a message in chat and hitting TAB on keyboard):
-# NONE - No suggestions
-# TEMPLATES - Suggest templates (e.g.: ":sob:")
-# ACTUAL - Suggest actual emoji (e.g.: "😭")
+# Chat suggestions modes (when typing a message in the chat and hitting TAB on the keyboard):
+# NONE - No suggestions.
+# TEMPLATES - Suggest templates (e.g.: ":sob:").
+# ACTUAL - Suggest actual emoji (e.g.: "😭").
 suggestionMode: "TEMPLATES"
 
 # Should the plugin merge the "emojis.zip" resource pack with the server resource pack?
 # If "true", you should put your resource pack in the "/plugins/ImageEmojis/" directory.
-# The output will be generated within the "emojis.zip" archive
+# The output will be generated within the "emojis.zip" archive.
 mergeWithServerResourcePack: false
 mergeServerResourcePackName: "serverResourcePack.zip" # Name of the resource pack to merge "emojis.zip" with
 

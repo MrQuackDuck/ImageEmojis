@@ -5,6 +5,7 @@ import mrquackduck.imageemojis.models.EmojiData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
@@ -35,13 +36,24 @@ public class AnvilRenameListener implements Listener {
 
         TextComponent displayName = (TextComponent) meta.displayName();
         for (EmojiData emoji : emojis) {
-            TextReplacementConfig replacementConfig = TextReplacementConfig.builder()
+            TextComponent replacement = Component.text(emoji.getAsUtf8Symbol()).color(NamedTextColor.WHITE);
+
+            // The replacement config to replace the emoji template to an actual emoji
+            TextReplacementConfig templateToUtf8ReplacementConfig = TextReplacementConfig.builder()
                     .match(emoji.getTemplate())
-                    .replacement(Component.text(emoji.getAsUtf8Symbol()))
+                    .replacement(replacement)
+                    .build();
+
+            // The replacement config to fix existing UTF-8 symbols (to prevent them from being black on the sign)
+            TextReplacementConfig utf8ToUtf8ReplacementConfig = TextReplacementConfig.builder()
+                    .match(emoji.getAsUtf8Symbol())
+                    .replacement(replacement)
                     .build();
 
             if (displayName == null) continue;
-            displayName = (TextComponent) displayName.replaceText(replacementConfig);
+            displayName = (TextComponent) displayName
+                    .replaceText(templateToUtf8ReplacementConfig)
+                    .replaceText(utf8ToUtf8ReplacementConfig);
         }
 
         meta.displayName(displayName);

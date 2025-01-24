@@ -14,9 +14,12 @@
 ## 👀 Screenshots
 <img height=300 src="https://github.com/user-attachments/assets/df778e85-07ec-4daa-aec3-fa097e7973a7" />
 <img height=300 src="https://github.com/user-attachments/assets/73008596-6bdc-4cdf-8d7a-3075358df7f7" />
-<img width=620 src="https://github.com/user-attachments/assets/54d243b9-9eec-43b7-b893-84b5df38c50d" />
-<img width=620 src="https://github.com/user-attachments/assets/351a9dcb-2b0a-47e6-ad2b-ee8e2af52cbe" />
-
+<img width=620 src="https://github.com/user-attachments/assets/f9edf474-8836-40c5-8bc2-cd19150704ac" />
+<img width=620 src="https://github.com/user-attachments/assets/351a9dcb-2b0a-47e6-ad2b-ee8e2af52cbe" /><br/>
+<img width=620 src="https://github.com/user-attachments/assets/66b510f0-7b09-46c0-ad28-98ea3e2511d7" />
+<img width=620 src="https://github.com/user-attachments/assets/a9138765-f220-4194-a447-b52f9c0f961c" />
+<img width=620 src="https://github.com/user-attachments/assets/f78ec57a-aaa7-46bd-a312-db1058e156cf" />
+<img width=620 src="https://github.com/user-attachments/assets/7b0d5d8d-85ed-453f-99db-bbdc8dda5e41" />
 
  ## 💻 Commands
  
@@ -33,14 +36,17 @@ Aliases: `/ie`, `/imageemojis`.
 
 ## 🌠 Key features
 
-- **Automated resource pack generation**: the resource pack is generated every time the plugin starts or gets reloaded. The only thing you need to do is provide your server IP in the config and open the TCP port on the server _(**5000** by default)_.
-- **Chat suggestions** - emoji suggestions when the player types a message in chat. You can choose from three suggestion modes
+- **Automated resource pack generation** — the resource pack is generated every time the plugin starts or gets reloaded. The only thing you need to do is provide your server IP in the configuration and open the TCP port on the server _(**5000** by default)_.
+- **Chat suggestions** - emoji suggestions when a player types a message in chat. You can choose from three suggestion modes:
   - `NONE` - disable chat suggestions.
   - `TEMPLATES` _(set by default)_ - suggest templates of emojis when typing (e.g., **\:clueless:**).
-  - `ACTUAL` - suggest actual emojis (their UTF-8 symbols) when typing. (e.g., <img width=16 src="https://github.com/MrQuackDuck/ImageEmojis/blob/master/src/main/resources/pack.png" />)
-- Ability to **merge** emojis with your **server resource pack**: you can set the `mergeWithServerResourcePack` field to `true` in the `config.yml` and put your resource pack into the `../ImageEmojis/` directory with the `serverResourcePack.zip` filename _(the filename can be configured in the config)_.
+  - `ACTUAL` - suggest actual emojis (their UTF-8 symbols) when typing. (e.g., <img width=16 src="https://github.com/MrQuackDuck/ImageEmojis/blob/master/src/main/resources/pack.png" />).
+- Ability to **merge** emojis with your **server resource pack**: you can set the `mergeWithServerResourcePack` field to `true` in the `config.yml` and put your resource pack into the `../ImageEmojis/` directory with the `serverResourcePack.zip` filename _(the filename can be configured)_.
 > [!NOTE]
 > You should disable your resource pack in the `server.properties` if you enabled it earlier.
+- **Sign replacement** — you can enable/disable replacement of emoji templates on signs.
+- **Anvil replacement** — you can enable/disable replacement of emoji templates when renaming an item in the anvil.
+- **Command replacement** — you can enable/disable replacement of emoji templates when sending commands. By default, the plugin automatically preprocesses all commands sent by players and changes emoji templates to actual emojis.
 
 ## 📄 Default config
 > [!CAUTION]

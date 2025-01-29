@@ -60,9 +60,11 @@ serverIp: "127.0.0.1" # Your public server IP goes here
 # It should be opened on the machine so that players can download the resource pack.
 webServerPort: 5000
 
-# Whether a player will be force prompted to use the resource pack.
-# If the player declines, he/she will be disconnected from the server.
-enforceResourcePack: false
+# Resource pack enforcement policies:
+# NONE - The resource pack won't be loaded on join. This option can fit servers where players prefer to download the resource pack manually
+# OPTIONAL - Players can decline the resource pack from loading on join
+# REQUIRED - Players are forced to play with the resource pack
+enforcementPolicy: "OPTIONAL"
 
 replaceInAnvil: true # Replace emojis in anvils? (e.g., when renaming items).
 replaceInSigns: true # Replace emojis in signs? (e.g., after editing them).
@@ -94,6 +96,7 @@ messages:
   "resource-pack-up-to-date": "&#F4CA16[ImageEmojis] &#B3BEC4The resource pack is now up to date!"
   "reloaded": "&#F4CA16[ImageEmojis] &#B3BEC4Reloaded!"
   "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist or you don't have enough permissions."
+  "command-disabled": "&#F4CA16[ImageEmojis] &#B3BEC4This command is disabled on that server."
   "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."
 ```
 

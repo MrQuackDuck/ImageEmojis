@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import mrquackduck.imageemojis.models.ResourcePack;
 import mrquackduck.imageemojis.utils.SuggestionManager;
@@ -18,13 +19,14 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoined(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
         String resourcePackDownloadUrl = plugin.getResourcePackDownloadUrl();
         ResourcePack resourcePack = plugin.getResourcePack();
 
-        boolean enforceResourcePack = plugin.getConfig().getBoolean("enforceResourcePack");
-
-        Player player = event.getPlayer();
-        player.setResourcePack(resourcePackDownloadUrl, resourcePack.getHash(), enforceResourcePack);
+        // Checking enforcement policy
+        EnforcementPolicy enforcementPolicy = EnforcementPolicy.valueOf(plugin.getConfig().getString("enforcementPolicy"));
+        if (enforcementPolicy != EnforcementPolicy.NONE)
+            player.setResourcePack(resourcePackDownloadUrl, resourcePack.getHash(), enforcementPolicy == EnforcementPolicy.REQUIRED);
 
         SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
 

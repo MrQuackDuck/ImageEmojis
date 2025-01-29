@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.models.ResourcePack;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,13 +23,18 @@ public class EmojisUpdateCommand implements CommandExecutor {
             return true;
         }
 
+        Player player = (Player) commandSender;
+
         String resourcePackDownloadUrl = plugin.getResourcePackDownloadUrl();
         ResourcePack resourcePack = plugin.getResourcePack();
 
-        boolean enforceResourcePack = plugin.getConfig().getBoolean("enforceResourcePack");
+        EnforcementPolicy enforcementPolicy = EnforcementPolicy.valueOf(plugin.getConfig().getString("enforcementPolicy"));
+        if (enforcementPolicy == EnforcementPolicy.NONE) {
+            player.sendMessage(ImageEmojisPlugin.getMessage("command-disabled"));
+            return true;
+        }
 
-        Player player = (Player) commandSender;
-        player.setResourcePack(resourcePackDownloadUrl, resourcePack.getHash(), enforceResourcePack);
+        player.setResourcePack(resourcePackDownloadUrl, resourcePack.getHash(), enforcementPolicy == EnforcementPolicy.REQUIRED);
 
         player.sendMessage(ImageEmojisPlugin.getMessage("resource-pack-up-to-date"));
 

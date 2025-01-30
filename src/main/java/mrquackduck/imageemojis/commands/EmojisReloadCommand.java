@@ -23,29 +23,37 @@ public class EmojisReloadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
-        // Removing old suggestions
-        SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        try {
+            // Removing old suggestions
+            SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
+            List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
 
-        for (Player player : plugin.getServer().getOnlinePlayers())
-            SuggestionManager.removeSuggestions(player, emojis, suggestionMode);
+            for (Player player : plugin.getServer().getOnlinePlayers())
+                SuggestionManager.removeSuggestions(player, emojis, suggestionMode);
+        }
+        catch (Exception e) { /* Ignored */ }
 
         // Signaling the plugin to reload
         try { plugin.reload(); }
-        catch (RuntimeException e) {
-            commandSender.sendMessage(ImageEmojisPlugin.getMessage("an-error-occurred"));
-            plugin.getLogger().log(Level.SEVERE, e.getMessage());
+        catch (Exception e) { return handleException(commandSender, e); }
+
+        try {
+            // Updating suggestions after reload
+            SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
+            List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+            for (Player player : plugin.getServer().getOnlinePlayers())
+                SuggestionManager.addSuggestions(player, emojis, suggestionMode);
+
+            commandSender.sendMessage(MessageColorizer.colorize(ImageEmojisPlugin.getMessage("reloaded")));
+
             return true;
         }
+        catch (Exception e) { return handleException(commandSender, e); }
+    }
 
-        // Updating suggestions after reload
-        suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
-        emojis = plugin.getEmojiRepository().getEmojis();
-        for (Player player : plugin.getServer().getOnlinePlayers())
-            SuggestionManager.addSuggestions(player, emojis, suggestionMode);
-
-        commandSender.sendMessage(MessageColorizer.colorize(ImageEmojisPlugin.getMessage("reloaded")));
-
+    private boolean handleException(@NotNull CommandSender commandSender, Exception e) {
+        commandSender.sendMessage(ImageEmojisPlugin.getMessage("an-error-occurred"));
+        plugin.getLogger().log(Level.SEVERE, e.getMessage());
         return true;
     }
 }

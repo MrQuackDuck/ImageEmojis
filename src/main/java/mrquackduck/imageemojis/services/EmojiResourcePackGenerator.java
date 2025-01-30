@@ -51,7 +51,10 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
         zipBuilder.addDirectory("/assets/minecraft/textures");
         zipBuilder.addDirectory("/assets/minecraft/textures/font");
         String defaultJson = generateDefault();
-        if (mergeWithServerResourcePack) defaultJson = JsonUtil.mergeJsons(defaultJson, zipBuilder.getFileContent("/assets/minecraft/font/default.json"));
+        if (mergeWithServerResourcePack) {
+            try { defaultJson = JsonUtil.mergeJsons(defaultJson, zipBuilder.getFileContent("/assets/minecraft/font/default.json")); }
+            catch (RuntimeException ex) { /* Ignored */ }
+        }
         zipBuilder.addFile("/assets/minecraft/font/default.json", defaultJson);
         copyEmojisToZip(); // Copy all emojis to zip
         copyPackPng(); // Copy resource pack icon to the root folder

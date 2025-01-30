@@ -23,6 +23,7 @@ emojiHoverColor: "#AAAAAA" # The color of the text in hover
 # NONE - No suggestions.
 # TEMPLATES - Suggest templates (e.g.: ":sob:").
 # ACTUAL - Suggest actual emoji (e.g.: "😭").
+# BOTH - A combination of "TEMPLATES" and "ACTUAL" modes.
 suggestionMode: "TEMPLATES"
 
 # Should the plugin merge the "emojis.zip" resource pack with the server resource pack?

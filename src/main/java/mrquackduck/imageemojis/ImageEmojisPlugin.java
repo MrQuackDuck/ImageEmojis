@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis;
 
 import mrquackduck.imageemojis.commands.EmojisCommand;
+import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.listeners.*;
 import mrquackduck.imageemojis.models.ResourcePack;
 import mrquackduck.imageemojis.services.EmojiRepository;
@@ -71,7 +72,7 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         }
 
         // Start HTTP server to serve the resource pack
-        startHttpServer(resourcePack.getPath());
+        startHttpServerIfNeeded(resourcePack.getPath());
     }
 
     @Override
@@ -129,7 +130,7 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         start();
 
         // Start HTTP server to serve the resource pack
-        startHttpServer(resourcePack.getPath());
+        startHttpServerIfNeeded(resourcePack.getPath());
 
         logger.info("Plugin restarted!");
     }
@@ -140,7 +141,12 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         saveResource("pack.png", false);
     }
 
-    private void startHttpServer(String resourcePackPath) {
+    private void startHttpServerIfNeeded(String resourcePackPath) {
+        if (EnforcementPolicy.valueOf(getConfig().getString("enforcementPolicy")) == EnforcementPolicy.NONE) {
+            logger.info("Enforcement policy set to NONE: No need to start the resource pack HTTP server.");
+            return;
+        }
+
         FileConfiguration config = getConfig();
 
         String urlBase = config.getString("serverIp");

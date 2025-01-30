@@ -114,3 +114,6 @@ messages:
 1. Run the `/emojis reload` command.
 
 **Congrats!** Now you're ready to use the plugin. Put your emojis into the `../ImageEmojis/emojis/` directory, reload the plugin, and enter the `/emojis update` command on your client _(or just rejoin)_!
+
+> [!CAUTION]
+> The max resolution of an emoji **256x256px**!

@@ -154,9 +154,9 @@ public final class ImageEmojisPlugin extends JavaPlugin {
 
         try {
             File resourcePackFile = new File(resourcePackPath);
-            resourcePackServer = new HttpResourcePackServer(port, resourcePackFile);
+            resourcePackServer = new HttpResourcePackServer(port, resourcePackFile, "/" + resourcePack.getHashString());
             resourcePackServer.start();
-            resourcePackDownloadUrl = "http://" + urlBase + ":" + port + "#" + resourcePack.getHashString();
+            resourcePackDownloadUrl = "http://" + urlBase + ":" + port + "/" + resourcePack.getHashString();
             logger.info("Resource pack server started at " + resourcePackDownloadUrl);
         } catch (IOException e) {
             logger.severe("Failed to start HTTP server: " + e.getMessage());

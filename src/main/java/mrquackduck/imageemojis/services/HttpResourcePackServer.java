@@ -11,12 +11,12 @@ import java.nio.file.Files;
 public class HttpResourcePackServer {
     private final HttpServer server;
 
-    public HttpResourcePackServer(int port, File resourcePackFile) throws IOException {
+    public HttpResourcePackServer(int port, File resourcePackFile, String path) throws IOException {
         // Create HTTP server
         server = HttpServer.create(new InetSocketAddress(port), 0);
 
         // Define handler for all requests
-        server.createContext("/", exchange -> {
+        server.createContext(path, exchange -> {
             if (resourcePackFile.exists() && !resourcePackFile.isDirectory()) {
                 byte[] fileBytes = Files.readAllBytes(resourcePackFile.toPath());
 

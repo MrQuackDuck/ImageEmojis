@@ -9,6 +9,7 @@ import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.models.ResourcePack;
 import mrquackduck.imageemojis.serializable.Provider;
 import mrquackduck.imageemojis.serializable.ProvidersWrapper;
+import mrquackduck.imageemojis.utils.JsonUtil;
 import mrquackduck.imageemojis.utils.PackFormatUtil;
 
 import java.io.File;
@@ -49,7 +50,9 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
         zipBuilder.addDirectory("/assets/minecraft/font");
         zipBuilder.addDirectory("/assets/minecraft/textures");
         zipBuilder.addDirectory("/assets/minecraft/textures/font");
-        zipBuilder.addFile("/assets/minecraft/font/default.json", generateDefault());
+        String defaultJson = generateDefault();
+        if (mergeWithServerResourcePack) defaultJson = JsonUtil.mergeJsons(defaultJson, zipBuilder.getFileContent("/assets/minecraft/font/default.json"));
+        zipBuilder.addFile("/assets/minecraft/font/default.json", defaultJson);
         copyEmojisToZip(); // Copy all emojis to zip
         copyPackPng(); // Copy resource pack icon to the root folder
 

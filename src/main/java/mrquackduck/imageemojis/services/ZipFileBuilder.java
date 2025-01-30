@@ -33,6 +33,18 @@ public class ZipFileBuilder implements ZipBuilder {
     }
 
     @Override
+    public String getFileContent(String pathInZip) {
+        pathInZip = normalizePath(pathInZip);
+        byte[] content = inMemoryStructure.get(pathInZip);
+
+        if (content == null) {
+            throw new RuntimeException("File not found in zip: " + pathInZip);
+        }
+
+        return new String(content, StandardCharsets.UTF_8);
+    }
+
+    @Override
     public void copyFile(String absolutePathInRealSystem, String pathInZip) {
         try {
             byte[] fileContent = Files.readAllBytes(Paths.get(absolutePathInRealSystem));

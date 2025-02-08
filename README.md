@@ -11,7 +11,7 @@
 > [!IMPORTANT]
 > The plugin **doesn't support Spigot** yet due to the lack of compatibility with many features of Paper API.
 
-## 👀 Screenshots
+### 👀 Screenshots
 <img height=300 src="https://github.com/user-attachments/assets/df778e85-07ec-4daa-aec3-fa097e7973a7" />
 <img height=300 src="https://github.com/user-attachments/assets/73008596-6bdc-4cdf-8d7a-3075358df7f7" />
 <img width=620 src="https://github.com/user-attachments/assets/f9edf474-8836-40c5-8bc2-cd19150704ac" />
@@ -21,7 +21,7 @@
 <img width=620 src="https://github.com/user-attachments/assets/f78ec57a-aaa7-46bd-a312-db1058e156cf" />
 <img width=620 src="https://github.com/user-attachments/assets/7b0d5d8d-85ed-453f-99db-bbdc8dda5e41" />
 
- ## 💻 Commands
+ ### 💻 Commands
  
 - `/emojis list` — opens a book with all currently added emojis.
 - `/emojis update` — fetches the latest version of the emojis resource pack from the server. Intended to be used in case when the admin updated emojis and reloaded the plugin while you were playing. _(Alternatively, you can just rejoin and not use this command)_.
@@ -29,12 +29,12 @@
 
 Aliases: `/ie`, `/imageemojis`.
 
-## 🔞 Permissions
+### 🔞 Permissions
 - `imageemojis.admin` _(for **operators** by default)_ — Allows to use `/emojis reload`.
 - `imageemojis.update` — Allows to use `/emojis update`.
 - `imageemojis.list` — Allows to use `/emojis list`.
 
-## 🌠 Key features
+### 🌠 Key features
 
 - **Automated resource pack generation** — the resource pack is generated every time the plugin starts or gets reloaded. The only thing you need to do is provide your server IP in the configuration and open the TCP port on the server _(**5000** by default)_.
 - **Chat suggestions** - emoji suggestions when a player types a message in chat. You can choose from three suggestion modes:
@@ -48,7 +48,7 @@ Aliases: `/ie`, `/imageemojis`.
 - **Anvil replacement** — you can enable/disable replacement of emoji templates when renaming an item in the anvil.
 - **Command replacement** — you can enable/disable replacement of emoji templates when sending commands. By default, the plugin automatically preprocesses all commands sent by players and changes emoji templates to actual emojis.
 
-## 📄 Default config
+### 📄 Default config
 > [!CAUTION]
 > **Don't forget** to put your **public IP** into the `serverIp` field.<br>
 > Also, you should **open the TCP port** on your machine for the plugin to work. <i>Port **5000** by default</i>.<br/>
@@ -101,7 +101,7 @@ messages:
   "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."
 ```
 
-## 🚀 Installation guide
+### 🚀 Installation guide
 
 > [!IMPORTANT]
 > Before getting started, make sure the plugin's version is **compatible** with your server version.

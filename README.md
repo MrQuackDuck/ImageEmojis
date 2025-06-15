@@ -89,6 +89,13 @@ suggestionMode: "TEMPLATES"
 mergeWithServerResourcePack: false
 mergeServerResourcePackName: "serverResourcePack.zip" # Name of the resource pack to merge "emojis.zip" with
 
+# When you use over ~500 emojis you may see some emojis overlap each other (due to hashing function is limited to certain range)
+# If you plan to use many emojis on your server, you may set this value to "true"
+# IMPORTANT: Changing this will reset all existing emoji codes. This means:
+#   - Previously written emojis on signs and item names will appear as invalid symbols
+#   - Range will be increased from 2000 to 6400 available emoji unicode symbols
+extendedUnicodeRange: false
+
 messages:
   "resource-pack-description": "&nImage Emojis"
   "only-players": "&cOnly players can use this command!"

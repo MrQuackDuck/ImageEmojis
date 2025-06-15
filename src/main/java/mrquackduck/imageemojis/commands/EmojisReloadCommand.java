@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.MessageColorizer;
@@ -16,16 +17,18 @@ import java.util.logging.Level;
 
 public class EmojisReloadCommand implements CommandExecutor {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public EmojisReloadCommand(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         try {
             // Removing old suggestions
-            SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
+            SuggestionMode suggestionMode = config.suggestionMode();
             List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
 
             for (Player player : plugin.getServer().getOnlinePlayers())
@@ -39,12 +42,12 @@ public class EmojisReloadCommand implements CommandExecutor {
 
         try {
             // Updating suggestions after reload
-            SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
+            SuggestionMode suggestionMode = config.suggestionMode();
             List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
             for (Player player : plugin.getServer().getOnlinePlayers())
                 SuggestionManager.addSuggestions(player, emojis, suggestionMode);
 
-            commandSender.sendMessage(MessageColorizer.colorize(ImageEmojisPlugin.getMessage("reloaded")));
+            commandSender.sendMessage(MessageColorizer.colorize(config.getMessage("reloaded")));
 
             return true;
         }
@@ -52,7 +55,7 @@ public class EmojisReloadCommand implements CommandExecutor {
     }
 
     private boolean handleException(@NotNull CommandSender commandSender, Exception e) {
-        commandSender.sendMessage(ImageEmojisPlugin.getMessage("an-error-occurred"));
+        commandSender.sendMessage(config.getMessage("an-error-occurred"));
         plugin.getLogger().log(Level.SEVERE, e.getMessage());
         return true;
     }

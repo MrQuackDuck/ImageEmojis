@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.models.EmojiData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -16,15 +17,17 @@ import java.util.List;
 
 public class SignChangeListener implements Listener {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public SignChangeListener(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @EventHandler
     public void onSignChanged(SignChangeEvent event) {
         // Prevent execution if this feature is disabled in the config
-        if (!plugin.getConfig().getBoolean("replaceInSigns")) return;
+        if (!config.isSignReplacementEnabled()) return;
 
         Sign sign = (Sign) event.getBlock().getState();
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();

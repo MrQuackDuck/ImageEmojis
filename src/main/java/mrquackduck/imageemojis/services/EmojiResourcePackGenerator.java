@@ -3,6 +3,7 @@ package mrquackduck.imageemojis.services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.interfaces.ResourcePackGenerator;
 import mrquackduck.imageemojis.interfaces.ZipBuilder;
 import mrquackduck.imageemojis.models.EmojiData;
@@ -22,12 +23,14 @@ import java.util.Map;
 
 public class EmojiResourcePackGenerator implements ResourcePackGenerator {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
     private final List<EmojiData> emojis;
     private final ZipBuilder zipBuilder;
     private final Gson gson;
 
     public EmojiResourcePackGenerator(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
         this.emojis = plugin.getEmojiRepository().getEmojis();
         this.zipBuilder = new ZipFileBuilder();
         this.gson = new GsonBuilder().setPrettyPrinting().create();
@@ -37,9 +40,9 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
     public ResourcePack generate() {
         File pluginDirectory = plugin.getDataFolder().getAbsoluteFile();
 
-        boolean mergeWithServerResourcePack = plugin.getConfig().getBoolean("mergeWithServerResourcePack");
+        boolean mergeWithServerResourcePack = config.isMergeWithServerResourcePackEnabled();
         if (mergeWithServerResourcePack) {
-            String mergeServerResourcePackName = plugin.getConfig().getString("mergeServerResourcePackName");
+            String mergeServerResourcePackName = config.mergeServerResourcePackName();
             String pathToResourcePackToMerge = pluginDirectory.getAbsolutePath() + "/" + mergeServerResourcePackName;
             zipBuilder.mergeWithZip(pathToResourcePackToMerge);
         }
@@ -68,7 +71,7 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
     }
 
     private String generateMcPack() {
-        String description = ImageEmojisPlugin.getMessage("resource-pack-description");
+        String description = config.getMessage("resource-pack-description");
 
         // Create a map for the inner "pack" object
         Map<String, Object> pack = new HashMap<>();

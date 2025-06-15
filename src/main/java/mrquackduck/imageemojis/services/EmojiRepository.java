@@ -48,7 +48,7 @@ public class EmojiRepository {
                 // Generating a hash based on the file name
                 String fileNameHash = CharUtil.generateSHA256(fileName);
 
-                // Applying the hash on certain UTF8 range in order to get a unique UTF-8 code for the emoji
+                // Applying the hash on certain UTF-8 range in order to get a unique UTF-8 code for the emoji
                 String utf8Code = CharUtil.toUtf8Code(CharUtil.hashToRange(fileNameHash, rangeStart, rangeEnd));
 
                 int height = image.getHeight();

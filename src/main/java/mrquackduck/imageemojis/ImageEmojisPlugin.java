@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis;
 
 import mrquackduck.imageemojis.commands.EmojisCommand;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.listeners.*;
 import mrquackduck.imageemojis.models.ResourcePack;
@@ -8,8 +9,6 @@ import mrquackduck.imageemojis.services.EmojiRepository;
 import mrquackduck.imageemojis.services.EmojiResourcePackGenerator;
 import mrquackduck.imageemojis.services.HttpResourcePackServer;
 import mrquackduck.imageemojis.utils.MessageColorizer;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -30,7 +29,7 @@ public final class ImageEmojisPlugin extends JavaPlugin {
     private ResourcePack resourcePack;
     private HttpResourcePackServer resourcePackServer;
     private Logger logger;
-    private static Map<String, String> messages = new HashMap<>();
+    private final Configuration config = new Configuration(this);
 
     @Override
     public void onEnable() {
@@ -109,9 +108,6 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         // Saving the default pack icon if it doesn't exist
         saveDefaultPackPng();
 
-        // Setting up messages
-        setupMessages();
-
         // Setting up the emoji repository and getting the emoji data from the "./emojis/" directory
         emojiRepository = new EmojiRepository(this);
 
@@ -142,15 +138,13 @@ public final class ImageEmojisPlugin extends JavaPlugin {
     }
 
     private void startHttpServerIfNeeded(String resourcePackPath) {
-        if (EnforcementPolicy.valueOf(getConfig().getString("enforcementPolicy")) == EnforcementPolicy.NONE) {
+        if (config.enforcementPolicy() == EnforcementPolicy.NONE) {
             logger.info("Enforcement policy set to NONE: No need to start the resource pack HTTP server.");
             return;
         }
 
-        FileConfiguration config = getConfig();
-
-        String urlBase = config.getString("serverIp");
-        int port = config.getInt("webServerPort");
+        String urlBase = config.serverIp();
+        int port = config.webServerPort();
 
         try {
             File resourcePackFile = new File(resourcePackPath);
@@ -169,27 +163,5 @@ public final class ImageEmojisPlugin extends JavaPlugin {
             if (emojiFolder.mkdirs()) getLogger().info("Created emojis folder.");
             else getLogger().warning("Failed to create emojis folder.");
         }
-    }
-
-    private void setupMessages() {
-        messages = new HashMap<>();
-
-        // Getting the messages from the config
-        ConfigurationSection configSection = getConfig().getConfigurationSection("messages");
-        if (configSection != null) {
-            // Adding these messages to dictionary
-            Map<String, Object> messages = configSection.getValues(true);
-            for (Map.Entry<String, Object> pair : messages.entrySet()) {
-                ImageEmojisPlugin.messages.put(pair.getKey(), pair.getValue().toString());
-            }
-        }
-    }
-
-    // Returns a message from the config by key
-    public static String getMessage(String key) {
-        if (messages == null) return String.format("Message %s wasn't found (messages list is null)", key);
-        if (messages.get(key) == null) return String.format("Message %s wasn't found", key);
-
-        return MessageColorizer.colorize(messages.get(key));
     }
 }

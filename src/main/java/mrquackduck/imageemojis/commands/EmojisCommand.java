@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,9 +14,11 @@ import java.util.List;
 
 public class EmojisCommand implements CommandExecutor, TabCompleter {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public EmojisCommand(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @Override
@@ -34,7 +37,7 @@ public class EmojisCommand implements CommandExecutor, TabCompleter {
             return new EmojisReloadCommand(plugin).onCommand(commandSender, command, s, strings);
         }
         else {
-            commandSender.sendMessage(ImageEmojisPlugin.getMessage("command-not-found"));
+            commandSender.sendMessage(config.getMessage("command-not-found"));
         }
 
         return true;

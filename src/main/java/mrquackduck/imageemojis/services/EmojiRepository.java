@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.services;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.CharUtil;
 
@@ -13,11 +14,13 @@ import java.util.logging.Logger;
 
 public class EmojiRepository {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
     private final Logger logger;
     private List<EmojiData> cachedEmojis;
 
     public EmojiRepository(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
         this.logger = plugin.getLogger();
         this.cachedEmojis = null;
     }
@@ -32,8 +35,18 @@ public class EmojiRepository {
         List<EmojiData> emojis = new ArrayList<>();
         if (files == null) return emojis;
 
-        long rangeStart = CharUtil.fromUtf8Code("\\uEff2");
-        long rangeEnd = rangeStart + 2000;
+        long rangeStart;
+        long rangeEnd;
+
+        if (config.isExtendedUnicodeRangeEnabled()) {
+            rangeStart = CharUtil.parseUtf8CodeToLong("\\uE000");
+            rangeEnd = rangeStart + 6400;
+        }
+        else {
+            // Setting these values for backward compatibility
+            rangeStart = CharUtil.parseUtf8CodeToLong("\\uEff2");
+            rangeEnd = rangeStart + 2000;
+        }
 
         for (File file : files) {
             if (!file.isFile() || !isImageFile(file)) continue;
@@ -48,8 +61,8 @@ public class EmojiRepository {
                 // Generating a hash based on the file name
                 String fileNameHash = CharUtil.generateSHA256(fileName);
 
-                // Applying the hash on certain UTF8 range in order to get a unique UTF-8 code for the emoji
-                String utf8Code = CharUtil.toUtf8Code(CharUtil.hashToRange(fileNameHash, rangeStart, rangeEnd));
+                // Applying the hash on certain UTF-8 range in order to get a unique UTF-8 code for the emoji
+                String utf8Code = CharUtil.parseLongToUtf8Code(CharUtil.hashToRange(fileNameHash, rangeStart, rangeEnd));
 
                 int height = image.getHeight();
                 String absolutePath = file.getAbsolutePath();

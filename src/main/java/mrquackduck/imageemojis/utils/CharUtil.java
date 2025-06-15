@@ -5,34 +5,34 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class CharUtil {
-    public static String toUtf8Code(long number) {
+    public static String parseLongToUtf8Code(long number) {
         return String.format("\\u%04X", number);
     }
 
-    public static String toUtf8Code(String input) {
+    public static String parseUtf8CodeToActualSymbol(String utf8Code) {
         StringBuilder output = new StringBuilder();
-        int length = input.length();
+        int length = utf8Code.length();
 
         for (int i = 0; i < length; i++) {
-            if (i < length - 5 && input.charAt(i) == '\\' && input.charAt(i + 1) == 'u') {
-                String hexCode = input.substring(i + 2, i + 6);
+            if (i < length - 5 && utf8Code.charAt(i) == '\\' && utf8Code.charAt(i + 1) == 'u') {
+                String hexCode = utf8Code.substring(i + 2, i + 6);
                 try {
                     int codePoint = Integer.parseInt(hexCode, 16);
                     output.append((char) codePoint);
                     i += 5; // Skip the Unicode escape sequence
                 } catch (NumberFormatException e) {
                     // If parsing fails, treat it as a regular character
-                    output.append(input.charAt(i));
+                    output.append(utf8Code.charAt(i));
                 }
             } else {
-                output.append(input.charAt(i));
+                output.append(utf8Code.charAt(i));
             }
         }
 
         return output.toString();
     }
 
-    public static long fromUtf8Code(String utf8Code) {
+    public static long parseUtf8CodeToLong(String utf8Code) {
         if (utf8Code.startsWith("\\u")) {
             String hexValue = utf8Code.substring(2);
             return Long.parseLong(hexValue, 16);

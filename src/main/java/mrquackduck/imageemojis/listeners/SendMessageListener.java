@@ -2,6 +2,7 @@ package mrquackduck.imageemojis.listeners;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.ColorUtil;
 import net.kyori.adventure.text.Component;
@@ -17,16 +18,18 @@ import java.util.List;
 
 public class SendMessageListener implements Listener {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public SendMessageListener(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMessageSent(AsyncChatEvent event) {
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
-        boolean hoverEnabled = plugin.getConfig().getBoolean("emojiHoverEnabled");
-        String hoverColor = plugin.getConfig().getString("emojiHoverColor");
+        boolean hoverEnabled = config.isEmojiHoverEnabled();
+        String hoverColor = config.emojiHoverColor();
 
         TextComponent messageComponent = (TextComponent)event.message();
 

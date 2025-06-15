@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.models.EmojiData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -19,15 +20,17 @@ import java.util.List;
 
 public class EmojisListCommand implements CommandExecutor {
     private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public EmojisListCommand(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage(ImageEmojisPlugin.getMessage("only-players"));
+            commandSender.sendMessage(config.getMessage("only-players"));
             return true;
         }
 

@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
+import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import mrquackduck.imageemojis.models.ResourcePack;
@@ -11,10 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
-    ImageEmojisPlugin plugin;
+    private final ImageEmojisPlugin plugin;
+    private final Configuration config;
 
     public JoinListener(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
+        this.config = new Configuration(plugin);
     }
 
     @EventHandler
@@ -24,11 +27,11 @@ public class JoinListener implements Listener {
         ResourcePack resourcePack = plugin.getResourcePack();
 
         // Checking enforcement policy
-        EnforcementPolicy enforcementPolicy = EnforcementPolicy.valueOf(plugin.getConfig().getString("enforcementPolicy"));
+        EnforcementPolicy enforcementPolicy = config.enforcementPolicy();
         if (enforcementPolicy != EnforcementPolicy.NONE)
             player.setResourcePack(resourcePackDownloadUrl, resourcePack.getHash(), enforcementPolicy == EnforcementPolicy.REQUIRED);
 
-        SuggestionMode suggestionMode = SuggestionMode.valueOf(plugin.getConfig().getString("suggestionMode"));
+        SuggestionMode suggestionMode = config.suggestionMode();
 
         if (suggestionMode == SuggestionMode.NONE) return;
         SuggestionManager.addSuggestions(player, plugin.getEmojiRepository().getEmojis(), suggestionMode);

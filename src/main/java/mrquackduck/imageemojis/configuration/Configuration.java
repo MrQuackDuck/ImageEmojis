@@ -52,4 +52,8 @@ public class Configuration extends MessageConfigurationBase {
     public String mergeServerResourcePackName() {
         return getString("mergeServerResourcePackName");
     }
+
+    public boolean isExtendedUnicodeRangeEnabled() {
+        return getBoolean("extendedUnicodeRange");
+    }
 }

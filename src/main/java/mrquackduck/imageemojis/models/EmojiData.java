@@ -44,6 +44,6 @@ public class EmojiData {
     }
 
     public String getAsUtf8Symbol() {
-        return CharUtil.toUtf8Code(getChars().get(0));
+        return CharUtil.parseUtf8CodeToActualSymbol(getChars().get(0));
     }
 }

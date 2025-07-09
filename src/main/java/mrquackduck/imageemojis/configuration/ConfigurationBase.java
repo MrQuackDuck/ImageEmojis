@@ -36,6 +36,17 @@ public abstract class ConfigurationBase {
         return getConfig().getList(path);
     }
 
+    protected <T extends Enum<T>> T getEnumValue(String path, Class<T> enumClass, T defaultValue) {
+        String value = getString(path);
+        try {
+            return Enum.valueOf(enumClass, value.toUpperCase());
+        }
+        catch (IllegalArgumentException e) {
+            plugin.getLogger().severe("Invalid enum value '" + value + "' at path: '"+ path + "'. Using default: '" + defaultValue + "'");
+            return defaultValue;
+        }
+    }
+
     private FileConfiguration getConfig() {
         return this.plugin.getConfig();
     }

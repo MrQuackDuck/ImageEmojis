@@ -67,7 +67,7 @@ public class EmojiRepository {
                 int height = image.getHeight();
                 String absolutePath = file.getAbsolutePath();
 
-                EmojiData emojiData = new EmojiData(name, fileName, height, absolutePath, Collections.singletonList(utf8Code));
+                EmojiData emojiData = new EmojiData(name, fileName, height, absolutePath, Collections.singletonList(utf8Code), config.templateFormat());
                 emojis.add(emojiData);
             } catch (IOException e) {
                 logger.warning("Failed to read image file: " + file.getName());

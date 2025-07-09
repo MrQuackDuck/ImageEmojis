@@ -10,13 +10,15 @@ public class EmojiData {
     private final int height;
     private final String absolutePath;
     private final List<String> chars;
+    private final String templateFormat;
 
-    public EmojiData(String name, String fileName, int height, String absolutePath, List<String> chars) {
+    public EmojiData(String name, String fileName, int height, String absolutePath, List<String> chars, String templateFormat) {
         this.name = name;
         this.fileName = fileName;
         this.height = height;
         this.absolutePath = absolutePath;
         this.chars = chars;
+        this.templateFormat = templateFormat;
     }
 
     public String getName() {
@@ -24,7 +26,7 @@ public class EmojiData {
     }
 
     public String getTemplate() {
-        return ':' + getName() + ':';
+        return templateFormat.replace("<emoji>", getName());
     }
 
     public String getFileName() {

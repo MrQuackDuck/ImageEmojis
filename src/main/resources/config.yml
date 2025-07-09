@@ -26,6 +26,9 @@ emojiHoverColor: "#AAAAAA" # The color of the text in hover
 # BOTH - A combination of "TEMPLATES" and "ACTUAL" modes.
 suggestionMode: "TEMPLATES"
 
+# Emoji template format (e.g., you may replace semicolons or remove them completely)
+templateFormat: ":<emoji>:"
+
 # Should the plugin merge the "emojis.zip" resource pack with the server resource pack?
 # If "true", you should put your resource pack in the "/plugins/ImageEmojis/" directory.
 # The output will be generated within the "emojis.zip" archive.

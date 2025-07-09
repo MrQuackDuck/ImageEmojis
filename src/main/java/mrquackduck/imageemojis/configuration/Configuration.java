@@ -18,7 +18,7 @@ public class Configuration extends MessageConfigurationBase {
     }
 
     public EnforcementPolicy enforcementPolicy() {
-        return EnforcementPolicy.valueOf(getString("enforcementPolicy"));
+        return getEnumValue("enforcementPolicy", EnforcementPolicy.class, EnforcementPolicy.OPTIONAL);
     }
 
     public boolean isAnvilReplacementEnabled() {
@@ -41,8 +41,12 @@ public class Configuration extends MessageConfigurationBase {
         return getString("emojiHoverColor");
     }
 
+    public String templateFormat() {
+        return getString("templateFormat");
+    }
+
     public SuggestionMode suggestionMode() {
-        return SuggestionMode.valueOf(getString("suggestionMode"));
+        return getEnumValue("suggestionMode", SuggestionMode.class, SuggestionMode.TEMPLATES);
     }
 
     public boolean isMergeWithServerResourcePackEnabled() {

@@ -2,6 +2,7 @@ package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import mrquackduck.imageemojis.models.ResourcePack;
@@ -34,6 +35,7 @@ public class JoinListener implements Listener {
         SuggestionMode suggestionMode = config.suggestionMode();
 
         if (suggestionMode == SuggestionMode.NONE) return;
+        if (!player.hasPermission(Permissions.USE)) return;
         SuggestionManager.addSuggestions(player, plugin.getEmojiRepository().getEmojis(), suggestionMode);
     }
 }

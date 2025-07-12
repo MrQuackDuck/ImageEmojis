@@ -2,6 +2,7 @@ package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,16 +25,16 @@ public class EmojisCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         if (strings.length == 0 || strings[0].equalsIgnoreCase("info")) {
-            // Print info if command args not provided
+            // Print info if command args were not provided
             return new EmojisInfoCommand(plugin).onCommand(commandSender, command, s, strings);
         }
-        else if (strings[0].equalsIgnoreCase("list") && commandSender.hasPermission("imageemojis.list")) {
+        else if (strings[0].equalsIgnoreCase("list") && commandSender.hasPermission(Permissions.LIST)) {
             return new EmojisListCommand(plugin).onCommand(commandSender, command, s, strings);
         }
-        else if (strings[0].equalsIgnoreCase("update") && commandSender.hasPermission("imageemojis.update")) {
+        else if (strings[0].equalsIgnoreCase("update") && commandSender.hasPermission(Permissions.UPDATE)) {
             return new EmojisUpdateCommand(plugin).onCommand(commandSender, command, s, strings);
         }
-        else if (strings[0].equalsIgnoreCase("reload") && commandSender.hasPermission("imageemojis.admin")) {
+        else if (strings[0].equalsIgnoreCase("reload") && commandSender.hasPermission(Permissions.ADMIN)) {
             return new EmojisReloadCommand(plugin).onCommand(commandSender, command, s, strings);
         }
         else {
@@ -49,9 +50,9 @@ public class EmojisCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         options.add("info");
-        if (commandSender.hasPermission("imageemojis.list")) options.add("list");
-        if (commandSender.hasPermission("imageemojis.update")) options.add("update");
-        if (commandSender.hasPermission("imageemojis.admin")) options.add("reload");
+        if (commandSender.hasPermission(Permissions.LIST)) options.add("list");
+        if (commandSender.hasPermission(Permissions.UPDATE)) options.add("update");
+        if (commandSender.hasPermission(Permissions.ADMIN)) options.add("reload");
 
         StringUtil.copyPartialMatches(args[0], options, completions);
         return completions;

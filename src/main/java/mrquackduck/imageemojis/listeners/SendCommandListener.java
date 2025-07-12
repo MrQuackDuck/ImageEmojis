@@ -2,6 +2,7 @@ package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.models.EmojiData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +27,14 @@ public class SendCommandListener implements Listener {
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
 
         String command = event.getMessage();
-        for (EmojiData emoji : emojis) command = command.replace(emoji.getTemplate(), emoji.getAsUtf8Symbol());
+        for (EmojiData emoji : emojis) {
+            if (!event.getPlayer().hasPermission(Permissions.USE)) {
+                command = command.replace(emoji.getAsUtf8Symbol(), "");
+                continue;
+            }
+
+            command = command.replace(emoji.getTemplate(), emoji.getAsUtf8Symbol());
+        }
 
         event.setMessage(command);
     }

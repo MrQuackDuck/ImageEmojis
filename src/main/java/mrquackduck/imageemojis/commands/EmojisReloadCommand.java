@@ -2,6 +2,7 @@ package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.MessageColorizer;
@@ -44,8 +45,11 @@ public class EmojisReloadCommand implements CommandExecutor {
             // Updating suggestions after reload
             SuggestionMode suggestionMode = config.suggestionMode();
             List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
-            for (Player player : plugin.getServer().getOnlinePlayers())
-                SuggestionManager.addSuggestions(player, emojis, suggestionMode);
+            for (Player player : plugin.getServer().getOnlinePlayers()) {
+                if (player.hasPermission(Permissions.USE)) {
+                    SuggestionManager.addSuggestions(player, emojis, suggestionMode);
+                }
+            }
 
             commandSender.sendMessage(MessageColorizer.colorize(config.getMessage("reloaded")));
 

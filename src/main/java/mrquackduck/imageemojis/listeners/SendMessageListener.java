@@ -3,13 +3,16 @@ package mrquackduck.imageemojis.listeners;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.ColorUtil;
+import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,16 +31,15 @@ public class SendMessageListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMessageSent(AsyncChatEvent event) {
+        Player player = event.getPlayer();
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
-        boolean hoverEnabled = config.isEmojiHoverEnabled();
-        String hoverColor = config.emojiHoverColor();
-
         TextComponent messageComponent = (TextComponent)event.message();
 
         for (EmojiData emoji : emojis) {
             if (emoji.getChars().isEmpty()) continue;
             TextComponent replacement = Component.text(emoji.getAsUtf8Symbol());
-            if (hoverEnabled) replacement = replacement.hoverEvent(HoverEvent.showText(Component.text(emoji.getTemplate()).color(TextColor.color(ColorUtil.hexToColor(hoverColor)))));
+            if (config.isEmojiHoverEnabled()) replacement = replacement.hoverEvent(HoverEvent.showText(Component.text(emoji.getTemplate()).color(TextColor.color(ColorUtil.hexToColor(config.emojiHoverColor())))));
+            if (!event.getPlayer().hasPermission(Permissions.USE)) replacement = Component.empty();
 
             // The replacement config to replace the emoji template to an actual emoji
             TextReplacementConfig templateToUtf8ReplacementConfig = TextReplacementConfig.builder()
@@ -51,30 +53,43 @@ public class SendMessageListener implements Listener {
                     .replacement(replacement)
                     .build();
 
-            messageComponent = (TextComponent) messageComponent
-                    .replaceText(templateToUtf8ReplacementConfig)
-                    .replaceText(utf8ToUtf8ReplacementConfig);
+            if (player.hasPermission(Permissions.USE))
+                messageComponent = (TextComponent) messageComponent.replaceText(templateToUtf8ReplacementConfig);
+
+            messageComponent = (TextComponent) messageComponent.replaceText(utf8ToUtf8ReplacementConfig);
         }
 
+        messageComponent = TextComponentUtil.trim(messageComponent);
+
         event.message(messageComponent);
+        if (TextComponentUtil.getFullContent(messageComponent).trim().isEmpty()) event.setCancelled(true);
     }
 
     /**
-     * An event handler for compatibility with Spigot chat formatters
+     * An event handler compatible with Spigot chat formatters
      */
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onMessageSent(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
-
         String message = event.getMessage();
 
         for (EmojiData emoji : emojis) {
             if (emoji.getChars().isEmpty()) continue;
-            String utf8symbol = emoji.getAsUtf8Symbol();
-            message = message.replace(emoji.getTemplate(), utf8symbol);
+
+            if (!player.hasPermission(Permissions.USE)) {
+                message = message.replace(emoji.getAsUtf8Symbol(), "");
+                continue;
+            }
+
+            message = message.replace(emoji.getTemplate(), emoji.getAsUtf8Symbol());
         }
 
+        // Remove extra spaces
+        message = message.trim();
+
         event.setMessage(message);
+        if (message.isEmpty()) event.setCancelled(true);
     }
 }

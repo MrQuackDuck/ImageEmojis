@@ -32,8 +32,9 @@ Aliases: `/ie`, `/imageemojis`.
 
 ### 🔞 Permissions
 - `imageemojis.admin` _(for **operators** by default)_ — Allows to use `/emojis reload`.
-- `imageemojis.update` — Allows to use `/emojis update`.
-- `imageemojis.list` — Allows to use `/emojis list`.
+- `imageemojis.use` _(**true** by default)_ — Allows to use emojis as well as the `/emojis` command.
+- `imageemojis.update` _(**true** by default)_ — Allows to use `/emojis update`.
+- `imageemojis.list` _(**true** by default)_ — Allows to use `/emojis list`.
 
 ### 🌠 Key features
 

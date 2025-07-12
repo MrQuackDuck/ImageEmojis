@@ -39,7 +39,7 @@ public class SendMessageListener implements Listener {
             if (emoji.getChars().isEmpty()) continue;
             TextComponent replacement = Component.text(emoji.getAsUtf8Symbol());
             if (config.isEmojiHoverEnabled()) replacement = replacement.hoverEvent(HoverEvent.showText(Component.text(emoji.getTemplate()).color(TextColor.color(ColorUtil.hexToColor(config.emojiHoverColor())))));
-            if (!event.getPlayer().hasPermission(Permissions.USE)) replacement = Component.empty();
+            if (!player.hasPermission(Permissions.USE)) replacement = Component.empty();
 
             // The replacement config to replace the emoji template to an actual emoji
             TextReplacementConfig templateToUtf8ReplacementConfig = TextReplacementConfig.builder()

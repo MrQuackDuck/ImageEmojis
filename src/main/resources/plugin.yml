@@ -6,7 +6,8 @@ author: 'MrQuackDuck'
 
 commands:
   emojis:
-    description: Chat Image Emojis command
+    description: Image Emojis command
+    permission: imageemojis.use
     aliases:
       - ie
       - imageemojis
@@ -20,4 +21,7 @@ permissions:
     default: true
   imageemojis.list:
     description: Whether a player can open a book with all emojis
+    default: true
+  imageemojis.use:
+    description: Whether a player can use emojis and "/emojis" command
     default: true

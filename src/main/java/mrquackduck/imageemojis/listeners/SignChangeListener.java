@@ -2,13 +2,17 @@ package mrquackduck.imageemojis.listeners;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.SignSide;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -29,16 +33,28 @@ public class SignChangeListener implements Listener {
         // Prevent execution if this feature is disabled in the config
         if (!config.isSignReplacementEnabled()) return;
 
+        Player player = event.getPlayer();
         Sign sign = (Sign) event.getBlock().getState();
+
+        // Sign's side before it was edited
+        SignSide originalSide = sign.getSide(event.getSide());
+        List<Component> originalSideLines = originalSide.lines();
+
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
         List<Component> lines = event.lines();
 
         for (int i = 0; i < lines.size(); i++) {
             TextComponent signLine = (TextComponent) lines.get(i);
+            if (TextComponentUtil.areEqual(signLine, originalSideLines.get(i))) {
+                // Leave the line if nothing has changed
+                event.line(i, originalSideLines.get(i));
+                continue;
+            }
 
             signLine = signLine.color(signLine.color());
             for (EmojiData emoji : emojis) {
                 TextComponent replacement = Component.text(emoji.getAsUtf8Symbol()).color(TextColor.color(NamedTextColor.WHITE));
+                if (!player.hasPermission(Permissions.USE)) replacement = Component.empty();
 
                 // The replacement config to replace the emoji template to an actual emoji
                 TextReplacementConfig templateToUtf8ReplacementConfig = TextReplacementConfig.builder()
@@ -52,9 +68,10 @@ public class SignChangeListener implements Listener {
                         .replacement(replacement)
                         .build();
 
-                signLine = (TextComponent) signLine
-                        .replaceText(templateToUtf8ReplacementConfig)
-                        .replaceText(utf8ToUtf8ReplacementConfig);
+                if (player.hasPermission(Permissions.USE))
+                    signLine = (TextComponent) signLine.replaceText(templateToUtf8ReplacementConfig);
+
+                signLine = (TextComponent) signLine.replaceText(utf8ToUtf8ReplacementConfig);
             }
 
             event.line(i, signLine);

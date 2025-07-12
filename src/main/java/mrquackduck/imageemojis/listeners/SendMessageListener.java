@@ -13,6 +13,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.List;
 
@@ -56,5 +57,24 @@ public class SendMessageListener implements Listener {
         }
 
         event.message(messageComponent);
+    }
+
+    /**
+     * An event handler for compatibility with Spigot chat formatters
+     */
+    @SuppressWarnings("deprecation")
+    @EventHandler
+    public void onMessageSent(AsyncPlayerChatEvent event) {
+        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+
+        String message = event.getMessage();
+
+        for (EmojiData emoji : emojis) {
+            if (emoji.getChars().isEmpty()) continue;
+            String utf8symbol = emoji.getAsUtf8Symbol();
+            message = message.replace(emoji.getTemplate(), utf8symbol);
+        }
+
+        event.setMessage(message);
     }
 }

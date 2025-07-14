@@ -49,7 +49,11 @@ public class EmojiRepository {
         }
 
         for (File file : files) {
-            if (!file.isFile() || !isImageFile(file)) continue;
+            if (!file.isFile()) continue;
+            if (!isPng(file)) {
+                logger.warning(String.format("Skipping '%s'. Only 'png'-native image files are supported. Try converting into 'png'.", file.getName()));
+                continue;
+            }
 
             try {
                 BufferedImage image = ImageIO.read(file);
@@ -81,8 +85,8 @@ public class EmojiRepository {
         return emojis;
     }
 
-    private boolean isImageFile(File file) {
+    private boolean isPng(File file) {
         String name = file.getName().toLowerCase();
-        return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg");
+        return name.endsWith(".png");
     }
 }

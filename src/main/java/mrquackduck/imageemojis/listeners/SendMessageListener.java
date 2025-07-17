@@ -4,6 +4,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
+import mrquackduck.imageemojis.enums.NoPermAction;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.ColorUtil;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
@@ -77,6 +78,12 @@ public class SendMessageListener implements Listener {
 
         for (EmojiData emoji : emojis) {
             if (emoji.getChars().isEmpty()) continue;
+            if (!player.hasPermission(Permissions.USE) && config.inChatNoPermAction() == NoPermAction.CANCEL_EVENT
+                    && message.contains(emoji.getAsUtf8Symbol())) {
+                if (config.shouldNoPermMessageAppear()) player.sendMessage(config.getMessage("not-enough-permissions"));
+                event.setCancelled(true);
+                return;
+            }
 
             if (!player.hasPermission(Permissions.USE)) {
                 message = message.replace(emoji.getAsUtf8Symbol(), "");

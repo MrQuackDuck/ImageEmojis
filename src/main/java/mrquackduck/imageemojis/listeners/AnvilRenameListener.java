@@ -3,6 +3,7 @@ package mrquackduck.imageemojis.listeners;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
+import mrquackduck.imageemojis.enums.NoPermAction;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
@@ -38,9 +39,17 @@ public class AnvilRenameListener implements Listener {
 
         TextComponent displayName = getItemStackName(event.getResult());
         if (displayName == null) return;
+        final String componentContent = TextComponentUtil.getFullContent(displayName);
 
         for (EmojiData emoji : emojis) {
             TextComponent replacement = Component.text(emoji.getAsUtf8Symbol()).color(NamedTextColor.WHITE);
+            if (!player.hasPermission(Permissions.USE) && config.inAnvilsNoPermAction() == NoPermAction.CANCEL_EVENT
+                    && componentContent.contains(emoji.getAsUtf8Symbol())) {
+                if (config.shouldNoPermMessageAppear()) player.sendMessage(config.getMessage("not-enough-permissions"));
+                event.setResult(null);
+                return;
+            }
+
             if (!player.hasPermission(Permissions.USE)) replacement = Component.empty();
 
             // The replacement config to replace the emoji template to an actual emoji

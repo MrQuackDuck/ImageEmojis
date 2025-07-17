@@ -43,6 +43,7 @@ Aliases: `/ie`, `/imageemojis`.
   - `NONE` - disable chat suggestions.
   - `TEMPLATES` _(set by default)_ - suggest templates of emojis when typing (e.g., **\:clueless:**).
   - `ACTUAL` - suggest actual emojis (their UTF-8 symbols) when typing. (e.g., <img width=16 src="https://github.com/MrQuackDuck/ImageEmojis/blob/master/src/main/resources/pack.png" />).
+  - `BOTH` - A combination of "TEMPLATES" and "ACTUAL" modes.
 - Ability to **merge** emojis with your **server resource pack**: you can set the `mergeWithServerResourcePack` field to `true` in the `config.yml` and put your resource pack into the `../ImageEmojis/` directory with the `serverResourcePack.zip` filename _(the filename can be configured)_.
 > [!NOTE]
 > You should disable your resource pack in the `server.properties` if you enabled it earlier.
@@ -56,48 +57,67 @@ Aliases: `/ie`, `/imageemojis`.
 > Also, you should **open the TCP port** on your machine for the plugin to work. <i>Port **5000** by default</i>.<br/>
 > **Otherwise, nothing will work.**
 ```yml
-serverIp: "127.0.0.1" # Your public server IP goes here
+# Your public server IP goes here.
+serverIp: "127.0.0.1"
 
 # The port the resource pack will be hosted on. When the plugin launches, an HTTP server is starting on that port.
 # It should be opened on the machine so that players can download the resource pack.
 webServerPort: 5000
 
 # Resource pack enforcement policies:
-# NONE - The resource pack won't be loaded on join. This option can fit servers where players prefer to download the resource pack manually
-# OPTIONAL - Players can decline the resource pack from loading on join
-# REQUIRED - Players are forced to play with the resource pack
+# NONE - The resource pack won't be loaded on join. This option can fit servers where players prefer to download the resource pack manually.
+# OPTIONAL - Players can decline the resource pack from loading on join.
+# REQUIRED - Players are forced to play with the resource pack.
 enforcementPolicy: "OPTIONAL"
 
-replaceInAnvil: true # Replace emojis in anvils? (e.g., when renaming items).
-replaceInSigns: true # Replace emojis in signs? (e.g., after editing them).
-replaceInCommands: true # Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands).
+# Replace emojis in anvils? (e.g., when renaming items)
+replaceInAnvils: true
+# Replace emojis in signs? (e.g., after editing them)
+replaceOnSigns: true
+# Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands)
+replaceInCommands: true
 
-# This feature MAY NOT WORK if you use chat formatters such as "VaultChatFormatter" or "LPC" due to their incompatibility with Paper Components.
+# What will happen if a player doesn't have the "imageemojis.use" permission?:
+# ERASE_EMOJIS - Erase all emojis from payload and proceed.
+# CANCEL_EVENT - Cancel the event completely (e.g., prevent the message from being sent).
+noPermAction:
+  inChat: "ERASE_EMOJIS"
+  inAnvils: "ERASE_EMOJIS"
+  onSigns: "ERASE_EMOJIS"
+  inCommands: "ERASE_EMOJIS"
+
+# Whether the player will see the "Not enough permissions" message.
+# Will be shown only for events with the "CANCEL_EVENT" action selected.
+noPermMessage: false
+
+# Whether an emoji name should appear when you put your cursor over the emoji symbol in the chat.
+# This feature MAY NOT WORK if you use Spigot-native chat formatters such as "VaultChatFormatter" or "LPC" due to their incompatibility with Paper Components.
 # If you are looking for a simple chat formatter that doesn't break messages, you can consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
-emojiHoverEnabled: true # Whether an emoji name will appear when you put your cursor over the emoji symbol in the chat
-emojiHoverColor: "#AAAAAA" # The color of the text in hover
+emojiHoverEnabled: true
+emojiHoverColor: "#AAAAAA"
 
 # Chat suggestions modes (when typing a message in the chat and hitting TAB on the keyboard):
 # NONE - No suggestions.
-# TEMPLATES - Suggest templates (e.g.: ":sob:").
-# ACTUAL - Suggest actual emoji (e.g.: "😭").
+# TEMPLATES - Suggest templates (e.g., ":sob:").
+# ACTUAL - Suggest actual emoji (e.g., "😭").
 # BOTH - A combination of "TEMPLATES" and "ACTUAL" modes.
 suggestionMode: "TEMPLATES"
 
-# Emoji template format (e.g., you may replace semicolons or remove them completely)
+# Emoji template format (e.g., you may replace colons or remove them completely).
 templateFormat: ":<emoji>:"
 
 # Should the plugin merge the "emojis.zip" resource pack with the server resource pack?
 # If "true", you should put your resource pack in the "/plugins/ImageEmojis/" directory.
 # The output will be generated within the "emojis.zip" archive.
 mergeWithServerResourcePack: false
-mergeServerResourcePackName: "serverResourcePack.zip" # Name of the resource pack to merge "emojis.zip" with
+# Name of the resource pack to merge "emojis.zip" with.
+mergeServerResourcePackName: "serverResourcePack.zip"
 
-# When you use over ~500 emojis you may see some emojis overlap each other (due to hashing function is limited to certain range)
-# If you plan to use many emojis on your server, you may set this value to "true"
+# When you use over ~500 emojis you may see some emojis overlap each other (due to hashing function is limited to certain range).
+# If you plan to use many emojis on your server, you may set this value to "true".
 # IMPORTANT: Changing this will reset all existing emoji codes. This means:
-#   - Previously written emojis on signs and item names will appear as invalid symbols
-#   - Range will be increased from 2000 to 6400 available emoji unicode symbols
+#   - Previously written emojis on signs and item names will appear as invalid symbols;
+#   - Range will be increased from 2000 to 6400 available emoji unicode symbols.
 extendedUnicodeRange: false
 
 messages:
@@ -108,6 +128,7 @@ messages:
     \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during current game session."
   "resource-pack-up-to-date": "&#F4CA16[ImageEmojis] &#B3BEC4The resource pack is now up to date!"
   "reloaded": "&#F4CA16[ImageEmojis] &#B3BEC4Reloaded!"
+  "not-enough-permissions": "&#F4CA16[ImageEmojis] &#B3BEC4Not enough permissions."
   "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist or you don't have enough permissions."
   "command-disabled": "&#F4CA16[ImageEmojis] &#B3BEC4This command is disabled on that server."
   "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."

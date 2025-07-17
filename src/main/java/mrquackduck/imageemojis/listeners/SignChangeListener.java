@@ -3,6 +3,7 @@ package mrquackduck.imageemojis.listeners;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
+import mrquackduck.imageemojis.enums.NoPermAction;
 import mrquackduck.imageemojis.models.EmojiData;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
@@ -43,16 +44,28 @@ public class SignChangeListener implements Listener {
         List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
         List<Component> lines = event.lines();
 
+        boolean shouldNoPermMessageAppear = false;
+
         for (int i = 0; i < lines.size(); i++) {
             TextComponent signLine = (TextComponent) lines.get(i);
             if (TextComponentUtil.areEqual(signLine, originalSideLines.get(i))) {
-                // Leave the line if nothing has changed
+                // Leave the line as it is if nothing has changed
                 event.line(i, originalSideLines.get(i));
                 continue;
             }
 
+            final String componentContent = TextComponentUtil.getFullContent(signLine);
             signLine = signLine.color(signLine.color());
             for (EmojiData emoji : emojis) {
+                if (!player.hasPermission(Permissions.USE) && config.onSignsNoPermAction() == NoPermAction.CANCEL_EVENT
+                        && componentContent.contains(emoji.getAsUtf8Symbol())) {
+                    if (config.shouldNoPermMessageAppear()) shouldNoPermMessageAppear = true;
+                    // Leave the line as it is if the player doesn't have the "imageemojis.use" permission
+                    // and "noPermAction.onSigns" is set to "CANCEL_EVENT"
+                    signLine = (TextComponent) originalSideLines.get(i);
+                    break;
+                }
+
                 TextComponent replacement = Component.text(emoji.getAsUtf8Symbol()).color(TextColor.color(NamedTextColor.WHITE));
                 if (!player.hasPermission(Permissions.USE)) replacement = Component.empty();
 
@@ -77,5 +90,7 @@ public class SignChangeListener implements Listener {
             event.line(i, signLine);
             sign.setEditable(true);
         }
+
+        if (shouldNoPermMessageAppear) player.sendMessage(config.getMessage("not-enough-permissions"));
     }
 }

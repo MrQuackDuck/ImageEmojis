@@ -23,7 +23,11 @@ public class PackFormatUtil {
             entry("1.20.5–1.20.6", 32),
             entry("1.21–1.21.1", 34),
             entry("1.21.2–1.21.3", 42),
-            entry("1.21.4", 46)
+            entry("1.21.4", 46),
+            entry("1.21.5", 55),
+            entry("1.21.6", 63),
+            entry("1.21.7", 64),
+            entry("1.21.8", 64)
         );
 
         String cleanVersion = cleanVersion(version);

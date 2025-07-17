@@ -1,6 +1,7 @@
 package mrquackduck.imageemojis.configuration;
 
 import mrquackduck.imageemojis.enums.EnforcementPolicy;
+import mrquackduck.imageemojis.enums.NoPermAction;
 import mrquackduck.imageemojis.enums.SuggestionMode;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,15 +23,35 @@ public class Configuration extends MessageConfigurationBase {
     }
 
     public boolean isAnvilReplacementEnabled() {
-        return getBoolean("replaceInAnvil");
+        return getBoolean("replaceInAnvils");
     }
 
     public boolean isSignReplacementEnabled() {
-        return getBoolean("replaceInSigns");
+        return getBoolean("replaceOnSigns");
     }
 
     public boolean isCommandReplacementEnabled() {
         return getBoolean("replaceInCommands");
+    }
+
+    public NoPermAction inChatNoPermAction() {
+        return getEnumValue("noPermAction.inChat", NoPermAction.class, NoPermAction.ERASE_EMOJIS);
+    }
+
+    public NoPermAction inAnvilsNoPermAction() {
+        return getEnumValue("noPermAction.inAnvils", NoPermAction.class, NoPermAction.ERASE_EMOJIS);
+    }
+
+    public NoPermAction onSignsNoPermAction() {
+        return getEnumValue("noPermAction.onSigns", NoPermAction.class, NoPermAction.ERASE_EMOJIS);
+    }
+
+    public NoPermAction inCommandsNoPermAction() {
+        return getEnumValue("noPermAction.inCommands", NoPermAction.class, NoPermAction.ERASE_EMOJIS);
+    }
+
+    public boolean shouldNoPermMessageAppear() {
+        return getBoolean("noPermMessage");
     }
 
     public boolean isEmojiHoverEnabled() {

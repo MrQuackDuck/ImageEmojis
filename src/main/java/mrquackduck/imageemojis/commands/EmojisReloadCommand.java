@@ -51,7 +51,7 @@ public class EmojisReloadCommand implements CommandExecutor {
                 }
             }
 
-            commandSender.sendMessage(MessageColorizer.colorize(config.getMessage("reloaded")));
+            commandSender.sendMessage(config.getMessage("reloaded"));
 
             return true;
         }

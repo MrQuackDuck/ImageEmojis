@@ -4,8 +4,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.SuggestionMode;
-import mrquackduck.imageemojis.models.EmojiData;
-import mrquackduck.imageemojis.utils.MessageColorizer;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.utils.SuggestionManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +29,7 @@ public class EmojisReloadCommand implements CommandExecutor {
         try {
             // Removing old suggestions
             SuggestionMode suggestionMode = config.suggestionMode();
-            List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+            List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
 
             for (Player player : plugin.getServer().getOnlinePlayers())
                 SuggestionManager.removeSuggestions(player, emojis, suggestionMode);
@@ -44,7 +43,7 @@ public class EmojisReloadCommand implements CommandExecutor {
         try {
             // Updating suggestions after reload
             SuggestionMode suggestionMode = config.suggestionMode();
-            List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+            List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
             for (Player player : plugin.getServer().getOnlinePlayers()) {
                 if (player.hasPermission(Permissions.USE)) {
                     SuggestionManager.addSuggestions(player, emojis, suggestionMode);

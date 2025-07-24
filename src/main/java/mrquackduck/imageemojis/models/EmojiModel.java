@@ -4,7 +4,7 @@ import mrquackduck.imageemojis.utils.CharUtil;
 
 import java.util.List;
 
-public class EmojiData {
+public class EmojiModel {
     private final String name;
     private final String fileName;
     private final int height;
@@ -12,7 +12,7 @@ public class EmojiData {
     private final List<String> chars;
     private final String templateFormat;
 
-    public EmojiData(String name, String fileName, int height, String absolutePath, List<String> chars, String templateFormat) {
+    public EmojiModel(String name, String fileName, int height, String absolutePath, List<String> chars, String templateFormat) {
         this.name = name;
         this.fileName = fileName;
         this.height = height;

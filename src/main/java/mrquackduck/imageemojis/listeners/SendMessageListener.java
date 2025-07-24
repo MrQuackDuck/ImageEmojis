@@ -5,7 +5,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.NoPermAction;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.utils.ColorUtil;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
@@ -33,10 +33,10 @@ public class SendMessageListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMessageSent(AsyncChatEvent event) {
         Player player = event.getPlayer();
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
         TextComponent messageComponent = (TextComponent)event.message();
 
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             if (emoji.getChars().isEmpty()) continue;
             TextComponent replacement = Component.text(emoji.getAsUtf8Symbol());
             if (config.isEmojiHoverEnabled()) replacement = replacement.hoverEvent(HoverEvent.showText(Component.text(emoji.getTemplate()).color(TextColor.color(ColorUtil.hexToColor(config.emojiHoverColor())))));
@@ -73,10 +73,10 @@ public class SendMessageListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onMessageSent(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
         String message = event.getMessage();
 
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             if (emoji.getChars().isEmpty()) continue;
             if (!player.hasPermission(Permissions.USE) && config.inChatNoPermAction() == NoPermAction.CANCEL_EVENT
                     && message.contains(emoji.getAsUtf8Symbol())) {

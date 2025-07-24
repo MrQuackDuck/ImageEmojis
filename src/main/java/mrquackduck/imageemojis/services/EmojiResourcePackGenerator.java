@@ -6,7 +6,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.interfaces.ResourcePackGenerator;
 import mrquackduck.imageemojis.interfaces.ZipBuilder;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.models.ResourcePack;
 import mrquackduck.imageemojis.serializable.Provider;
 import mrquackduck.imageemojis.serializable.ProvidersWrapper;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class EmojiResourcePackGenerator implements ResourcePackGenerator {
     private final ImageEmojisPlugin plugin;
     private final Configuration config;
-    private final List<EmojiData> emojis;
+    private final List<EmojiModel> emojis;
     private final ZipBuilder zipBuilder;
     private final Gson gson;
 
@@ -87,7 +87,7 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
 
     private String generateDefault() {
         List<Provider> providers = new ArrayList<>();
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             Provider provider = new Provider(
                     "bitmap",
                     "minecraft:font/" + emoji.getFileName(),
@@ -111,7 +111,7 @@ public class EmojiResourcePackGenerator implements ResourcePackGenerator {
 
     private void copyEmojisToZip() {
         String root = "/assets/minecraft/textures/font/";
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             zipBuilder.copyFile(emoji.getAbsolutePath(), root + emoji.getFileName());
         }
     }

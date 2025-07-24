@@ -4,7 +4,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.NoPermAction;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -34,14 +34,14 @@ public class AnvilRenameListener implements Listener {
         // Prevent execution if this feature is disabled in the config
         if (!config.isAnvilReplacementEnabled()) return;
 
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
         Player player = (Player)event.getView().getPlayer();
 
         TextComponent displayName = getItemStackName(event.getResult());
         if (displayName == null) return;
         final String componentContent = TextComponentUtil.getFullContent(displayName);
 
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             TextComponent replacement = Component.text(emoji.getAsUtf8Symbol()).color(NamedTextColor.WHITE);
             if (!player.hasPermission(Permissions.USE) && config.inAnvilsNoPermAction() == NoPermAction.CANCEL_EVENT
                     && componentContent.contains(emoji.getAsUtf8Symbol())) {

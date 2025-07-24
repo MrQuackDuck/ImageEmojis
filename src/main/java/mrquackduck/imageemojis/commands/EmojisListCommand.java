@@ -2,7 +2,7 @@ package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -44,7 +44,7 @@ public class EmojisListCommand implements CommandExecutor {
         ItemStack itemStack = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta)itemStack.getItemMeta();
 
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
 
         List<Component> pages = getPages(emojis);
 
@@ -57,11 +57,11 @@ public class EmojisListCommand implements CommandExecutor {
         return itemStack;
     }
 
-    private static @NotNull List<Component> getPages(List<EmojiData> emojis) {
+    private static @NotNull List<Component> getPages(List<EmojiModel> emojis) {
         TextComponent textComponent = Component.text("");
         List<Component> pages = new ArrayList<>();
         int row = 0;
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             if (row >= 14) {
                 pages.add(textComponent);
                 textComponent = Component.text("");

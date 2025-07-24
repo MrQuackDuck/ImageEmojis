@@ -2,7 +2,7 @@ package mrquackduck.imageemojis.services;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.utils.CharUtil;
 
 import javax.imageio.ImageIO;
@@ -16,7 +16,7 @@ public class EmojiRepository {
     private final ImageEmojisPlugin plugin;
     private final Configuration config;
     private final Logger logger;
-    private List<EmojiData> cachedEmojis;
+    private List<EmojiModel> cachedEmojis;
 
     public EmojiRepository(ImageEmojisPlugin plugin) {
         this.plugin = plugin;
@@ -25,14 +25,14 @@ public class EmojiRepository {
         this.cachedEmojis = null;
     }
 
-    public List<EmojiData> getEmojis() {
+    public List<EmojiModel> getEmojis() {
         if (cachedEmojis != null) return cachedEmojis;
 
         File emojisFolder = new File(plugin.getDataFolder(), "emojis");
 
         File[] files = emojisFolder.listFiles();
 
-        List<EmojiData> emojis = new ArrayList<>();
+        List<EmojiModel> emojis = new ArrayList<>();
         if (files == null) return emojis;
 
         long rangeStart;
@@ -71,15 +71,15 @@ public class EmojiRepository {
                 int height = image.getHeight();
                 String absolutePath = file.getAbsolutePath();
 
-                EmojiData emojiData = new EmojiData(name, fileName, height, absolutePath, Collections.singletonList(utf8Code), config.templateFormat());
-                emojis.add(emojiData);
+                EmojiModel emojiModel = new EmojiModel(name, fileName, height, absolutePath, Collections.singletonList(utf8Code), config.templateFormat());
+                emojis.add(emojiModel);
             } catch (IOException e) {
                 logger.warning("Failed to read image file: " + file.getName());
             }
         }
 
         // Sort emojis by name
-        emojis.sort(Comparator.comparing(EmojiData::getName));
+        emojis.sort(Comparator.comparing(EmojiModel::getName));
 
         cachedEmojis = emojis;
         return emojis;

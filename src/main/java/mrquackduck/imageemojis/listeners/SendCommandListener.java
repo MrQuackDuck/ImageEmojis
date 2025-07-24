@@ -4,7 +4,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.NoPermAction;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,10 +27,10 @@ public class SendCommandListener implements Listener {
         if (!config.isCommandReplacementEnabled()) return;
 
         Player player = event.getPlayer();
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
 
         String command = event.getMessage();
-        for (EmojiData emoji : emojis) {
+        for (EmojiModel emoji : emojis) {
             if (!player.hasPermission(Permissions.USE) && config.inCommandsNoPermAction() == NoPermAction.CANCEL_EVENT
                     && command.contains(emoji.getAsUtf8Symbol())) {
                 if (config.shouldNoPermMessageAppear()) player.sendMessage(config.getMessage("not-enough-permissions"));

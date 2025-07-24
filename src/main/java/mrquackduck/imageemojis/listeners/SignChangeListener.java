@@ -4,7 +4,7 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.configuration.Permissions;
 import mrquackduck.imageemojis.enums.NoPermAction;
-import mrquackduck.imageemojis.models.EmojiData;
+import mrquackduck.imageemojis.models.EmojiModel;
 import mrquackduck.imageemojis.utils.TextComponentUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -41,7 +41,7 @@ public class SignChangeListener implements Listener {
         SignSide originalSide = sign.getSide(event.getSide());
         List<Component> originalSideLines = originalSide.lines();
 
-        List<EmojiData> emojis = plugin.getEmojiRepository().getEmojis();
+        List<EmojiModel> emojis = plugin.getEmojiRepository().getEmojis();
         List<Component> lines = event.lines();
 
         boolean shouldNoPermMessageAppear = false;
@@ -56,7 +56,7 @@ public class SignChangeListener implements Listener {
 
             final String componentContent = TextComponentUtil.getFullContent(signLine);
             signLine = signLine.color(signLine.color());
-            for (EmojiData emoji : emojis) {
+            for (EmojiModel emoji : emojis) {
                 if (!player.hasPermission(Permissions.USE) && config.onSignsNoPermAction() == NoPermAction.CANCEL_EVENT
                         && componentContent.contains(emoji.getAsUtf8Symbol())) {
                     if (config.shouldNoPermMessageAppear()) shouldNoPermMessageAppear = true;

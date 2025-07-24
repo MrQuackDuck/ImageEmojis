@@ -3,6 +3,7 @@ package mrquackduck.imageemojis;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.services.abstractions.IEmojiRepository;
 import mrquackduck.imageemojis.services.abstractions.IHttpResourcePackServer;
+import mrquackduck.imageemojis.setup.DiscordRegistrar;
 import mrquackduck.imageemojis.setup.HttpServerManager;
 import mrquackduck.imageemojis.setup.PluginInitializer;
 import mrquackduck.imageemojis.setup.ServerComponentRegistrar;
@@ -10,7 +11,6 @@ import mrquackduck.imageemojis.types.models.ResourcePack;
 import mrquackduck.imageemojis.utils.MessageColorizer;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,6 +41,7 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         }
 
         new ServerComponentRegistrar(this).registerAll();
+        new DiscordRegistrar(this).registerIntegration();
 
         try { new PluginInitializer(this).initialize(); }
         catch (RuntimeException e) {

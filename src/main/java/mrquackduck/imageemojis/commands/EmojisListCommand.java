@@ -2,7 +2,7 @@ package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.models.EmojiModel;
+import mrquackduck.imageemojis.types.models.EmojiModel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;

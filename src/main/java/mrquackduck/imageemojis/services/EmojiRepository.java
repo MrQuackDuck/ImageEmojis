@@ -2,7 +2,7 @@ package mrquackduck.imageemojis.services;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.models.EmojiModel;
+import mrquackduck.imageemojis.types.models.EmojiModel;
 import mrquackduck.imageemojis.utils.CharUtil;
 
 import javax.imageio.ImageIO;

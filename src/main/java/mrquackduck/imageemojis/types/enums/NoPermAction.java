@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.enums;
+package mrquackduck.imageemojis.types.enums;
 
 public enum NoPermAction {
     ERASE_EMOJIS,

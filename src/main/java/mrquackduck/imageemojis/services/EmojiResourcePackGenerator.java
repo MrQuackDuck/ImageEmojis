@@ -6,10 +6,10 @@ import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.interfaces.ResourcePackGenerator;
 import mrquackduck.imageemojis.interfaces.ZipBuilder;
-import mrquackduck.imageemojis.models.EmojiModel;
-import mrquackduck.imageemojis.models.ResourcePack;
-import mrquackduck.imageemojis.serializable.Provider;
-import mrquackduck.imageemojis.serializable.ProvidersWrapper;
+import mrquackduck.imageemojis.types.models.EmojiModel;
+import mrquackduck.imageemojis.types.models.ResourcePack;
+import mrquackduck.imageemojis.types.serializable.Provider;
+import mrquackduck.imageemojis.types.serializable.ProvidersWrapper;
 import mrquackduck.imageemojis.utils.JsonUtil;
 import mrquackduck.imageemojis.utils.PackFormatUtil;
 

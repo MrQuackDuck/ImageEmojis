@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.models;
+package mrquackduck.imageemojis.types.models;
 
 import mrquackduck.imageemojis.utils.CharUtil;
 

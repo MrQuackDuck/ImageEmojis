@@ -2,9 +2,9 @@ package mrquackduck.imageemojis;
 
 import mrquackduck.imageemojis.commands.EmojisCommand;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.enums.EnforcementPolicy;
+import mrquackduck.imageemojis.types.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.listeners.*;
-import mrquackduck.imageemojis.models.ResourcePack;
+import mrquackduck.imageemojis.types.models.ResourcePack;
 import mrquackduck.imageemojis.services.EmojiRepository;
 import mrquackduck.imageemojis.services.EmojiResourcePackGenerator;
 import mrquackduck.imageemojis.services.HttpResourcePackServer;

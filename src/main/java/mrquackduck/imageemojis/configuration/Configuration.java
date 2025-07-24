@@ -1,8 +1,8 @@
 package mrquackduck.imageemojis.configuration;
 
-import mrquackduck.imageemojis.enums.EnforcementPolicy;
-import mrquackduck.imageemojis.enums.NoPermAction;
-import mrquackduck.imageemojis.enums.SuggestionMode;
+import mrquackduck.imageemojis.types.enums.EnforcementPolicy;
+import mrquackduck.imageemojis.types.enums.NoPermAction;
+import mrquackduck.imageemojis.types.enums.SuggestionMode;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Configuration extends MessageConfigurationBase {

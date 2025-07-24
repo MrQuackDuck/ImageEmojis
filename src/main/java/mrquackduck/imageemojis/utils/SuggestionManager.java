@@ -1,7 +1,7 @@
 package mrquackduck.imageemojis.utils;
 
-import mrquackduck.imageemojis.enums.SuggestionMode;
-import mrquackduck.imageemojis.models.EmojiModel;
+import mrquackduck.imageemojis.types.enums.SuggestionMode;
+import mrquackduck.imageemojis.types.models.EmojiModel;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

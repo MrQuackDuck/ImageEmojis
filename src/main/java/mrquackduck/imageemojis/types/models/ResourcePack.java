@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.models;
+package mrquackduck.imageemojis.types.models;
 
 public class ResourcePack {
     private final String path;

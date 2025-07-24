@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.serializable;
+package mrquackduck.imageemojis.types.serializable;
 
 import java.util.List;
 

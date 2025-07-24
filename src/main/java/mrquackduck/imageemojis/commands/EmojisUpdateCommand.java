@@ -2,8 +2,8 @@ package mrquackduck.imageemojis.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.enums.EnforcementPolicy;
-import mrquackduck.imageemojis.models.ResourcePack;
+import mrquackduck.imageemojis.types.enums.EnforcementPolicy;
+import mrquackduck.imageemojis.types.models.ResourcePack;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

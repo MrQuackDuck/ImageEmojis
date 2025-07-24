@@ -1,7 +1,8 @@
-package mrquackduck.imageemojis.services;
+package mrquackduck.imageemojis.services.implementations;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
+import mrquackduck.imageemojis.services.abstractions.IEmojiRepository;
 import mrquackduck.imageemojis.types.models.EmojiModel;
 import mrquackduck.imageemojis.utils.CharUtil;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class EmojiRepository {
+public class EmojiRepository implements IEmojiRepository {
     private final ImageEmojisPlugin plugin;
     private final Configuration config;
     private final Logger logger;
@@ -25,6 +26,7 @@ public class EmojiRepository {
         this.cachedEmojis = null;
     }
 
+    @Override
     public List<EmojiModel> getEmojis() {
         if (cachedEmojis != null) return cachedEmojis;
 

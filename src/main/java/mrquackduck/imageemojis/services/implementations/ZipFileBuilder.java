@@ -1,6 +1,6 @@
-package mrquackduck.imageemojis.services;
+package mrquackduck.imageemojis.services.implementations;
 
-import mrquackduck.imageemojis.interfaces.ZipBuilder;
+import mrquackduck.imageemojis.services.abstractions.IZipBuilder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipFileBuilder implements ZipBuilder {
+public class ZipFileBuilder implements IZipBuilder {
     private final Map<String, byte[]> inMemoryStructure;
 
     public ZipFileBuilder() {

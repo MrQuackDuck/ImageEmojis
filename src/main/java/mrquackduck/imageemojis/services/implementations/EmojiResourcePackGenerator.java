@@ -1,11 +1,11 @@
-package mrquackduck.imageemojis.services;
+package mrquackduck.imageemojis.services.implementations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;
-import mrquackduck.imageemojis.interfaces.ResourcePackGenerator;
-import mrquackduck.imageemojis.interfaces.ZipBuilder;
+import mrquackduck.imageemojis.services.abstractions.IResourcePackGenerator;
+import mrquackduck.imageemojis.services.abstractions.IZipBuilder;
 import mrquackduck.imageemojis.types.models.EmojiModel;
 import mrquackduck.imageemojis.types.models.ResourcePack;
 import mrquackduck.imageemojis.types.serializable.Provider;
@@ -21,11 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EmojiResourcePackGenerator implements ResourcePackGenerator {
+public class EmojiResourcePackGenerator implements IResourcePackGenerator {
     private final ImageEmojisPlugin plugin;
     private final Configuration config;
     private final List<EmojiModel> emojis;
-    private final ZipBuilder zipBuilder;
+    private final IZipBuilder zipBuilder;
     private final Gson gson;
 
     public EmojiResourcePackGenerator(ImageEmojisPlugin plugin) {

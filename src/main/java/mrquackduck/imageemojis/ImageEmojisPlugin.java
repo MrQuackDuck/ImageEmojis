@@ -3,11 +3,13 @@ package mrquackduck.imageemojis;
 import mrquackduck.imageemojis.server.commands.EmojisCommand;
 import mrquackduck.imageemojis.configuration.Configuration;
 import mrquackduck.imageemojis.server.listeners.*;
+import mrquackduck.imageemojis.services.abstractions.IEmojiRepository;
+import mrquackduck.imageemojis.services.abstractions.IHttpResourcePackServer;
 import mrquackduck.imageemojis.types.enums.EnforcementPolicy;
 import mrquackduck.imageemojis.types.models.ResourcePack;
-import mrquackduck.imageemojis.services.EmojiRepository;
-import mrquackduck.imageemojis.services.EmojiResourcePackGenerator;
-import mrquackduck.imageemojis.services.HttpResourcePackServer;
+import mrquackduck.imageemojis.services.implementations.EmojiRepository;
+import mrquackduck.imageemojis.services.implementations.EmojiResourcePackGenerator;
+import mrquackduck.imageemojis.services.implementations.HttpResourcePackServer;
 import mrquackduck.imageemojis.utils.MessageColorizer;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,9 +27,9 @@ import static mrquackduck.imageemojis.utils.VersionComparer.isVersionHigherOrEqu
 
 public final class ImageEmojisPlugin extends JavaPlugin {
     private String resourcePackDownloadUrl = "";
-    private EmojiRepository emojiRepository;
+    private IEmojiRepository emojiRepository;
+    private IHttpResourcePackServer resourcePackServer;
     private ResourcePack resourcePack;
-    private HttpResourcePackServer resourcePackServer;
     private Logger logger;
     private final Configuration config = new Configuration(this);
 
@@ -153,7 +155,7 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         }
     }
 
-    public EmojiRepository getEmojiRepository() {
+    public IEmojiRepository getEmojiRepository() {
         return emojiRepository;
     }
 

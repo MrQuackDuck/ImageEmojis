@@ -1,6 +1,6 @@
-package mrquackduck.imageemojis.interfaces;
+package mrquackduck.imageemojis.services.abstractions;
 
-public interface ZipBuilder {
+public interface IZipBuilder {
     void addDirectory(String path);
     void addFile(String path, String content);
     String getFileContent(String pathInZip);

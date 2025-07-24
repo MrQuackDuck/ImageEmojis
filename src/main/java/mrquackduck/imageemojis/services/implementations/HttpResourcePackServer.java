@@ -1,6 +1,7 @@
-package mrquackduck.imageemojis.services;
+package mrquackduck.imageemojis.services.implementations;
 
 import com.sun.net.httpserver.HttpServer;
+import mrquackduck.imageemojis.services.abstractions.IHttpResourcePackServer;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 
-public class HttpResourcePackServer {
+public class HttpResourcePackServer implements IHttpResourcePackServer {
     private final HttpServer server;
 
     public HttpResourcePackServer(int port, File resourcePackFile, String path) throws IOException {

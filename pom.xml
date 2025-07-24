@@ -6,7 +6,7 @@
 
   <groupId>mrquackduck</groupId>
   <artifactId>ImageEmojis</artifactId>
-  <version>1.5.2</version>
+  <version>1.6</version>
   <packaging>jar</packaging>
 
   <name>ImageEmojis</name>
@@ -62,6 +62,10 @@
           <id>maven-central</id>
           <url>https://oss.sonatype.org/content/groups/public</url>
       </repository>
+      <repository>
+          <id>Scarsz-Nexus</id>
+          <url>https://nexus.scarsz.me/content/groups/public/</url>
+      </repository>
   </repositories>
 
   <dependencies>
@@ -75,6 +79,12 @@
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>
           <version>2.13.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.discordsrv</groupId>
+          <artifactId>discordsrv</artifactId>
+          <version>1.28.0</version>
+          <scope>provided</scope>
       </dependency>
       <dependency>
           <groupId>org.junit.jupiter</groupId>

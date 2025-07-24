@@ -1,7 +1,7 @@
-# Your public server IP goes here.
+# Your server public IP goes here.
 serverIp: "127.0.0.1"
 
-# The port the resource pack will be hosted on. When the plugin launches, an HTTP server is starting on that port.
+# The port the resource pack will be hosted on. When the plugin launches, an HTTP server starts on that port.
 # It should be opened on the machine so that players can download the resource pack.
 webServerPort: 5000
 
@@ -13,7 +13,7 @@ enforcementPolicy: "OPTIONAL"
 
 # Replace emojis in anvils? (e.g., when renaming items)
 replaceInAnvils: true
-# Replace emojis in signs? (e.g., after editing them)
+# Replace emojis on signs? (e.g., after editing them)
 replaceOnSigns: true
 # Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands)
 replaceInCommands: true
@@ -27,13 +27,13 @@ noPermAction:
   onSigns: "ERASE_EMOJIS"
   inCommands: "ERASE_EMOJIS"
 
-# Whether the player will see the "Not enough permissions" message.
+# Whether a player will see the "Not enough permissions" message.
 # Will be shown only for events with the "CANCEL_EVENT" action selected.
 noPermMessage: false
 
 # Whether an emoji name should appear when you put your cursor over the emoji symbol in the chat.
 # This feature MAY NOT WORK if you use Spigot-native chat formatters such as "VaultChatFormatter" or "LPC" due to their incompatibility with Paper Components.
-# If you are looking for a simple chat formatter that doesn't break messages, you can consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
+# If you are looking for a simple chat formatter that doesn't break messages, you may consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
 emojiHoverEnabled: true
 emojiHoverColor: "#AAAAAA"
 
@@ -54,7 +54,7 @@ mergeWithServerResourcePack: false
 # Name of the resource pack to merge "emojis.zip" with.
 mergeServerResourcePackName: "serverResourcePack.zip"
 
-# When you use over ~500 emojis you may see some emojis overlap each other (due to hashing function is limited to certain range).
+# When you use over ~500 emojis, you may see some emojis overlap each other (due to the hashing function being limited to a certain range).
 # If you plan to use many emojis on your server, you may set this value to "true".
 # IMPORTANT: Changing this will reset all existing emoji codes. This means:
 #   - Previously written emojis on signs and item names will appear as invalid symbols;
@@ -66,10 +66,10 @@ messages:
   "only-players": "&cOnly players can use this command!"
   "info-content": "&#F4CA16[ImageEmojis] &#B3BEC4There are currently &#D8E5EC&n%s&r&#B3BEC4 emojis!
     \n &#D8E5EC&n/emojis list&r&#B3BEC4 - see the emojis list.
-    \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during current game session."
+    \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during the current game session."
   "resource-pack-up-to-date": "&#F4CA16[ImageEmojis] &#B3BEC4The resource pack is now up to date!"
   "reloaded": "&#F4CA16[ImageEmojis] &#B3BEC4Reloaded!"
   "not-enough-permissions": "&#F4CA16[ImageEmojis] &#B3BEC4Not enough permissions."
-  "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist or you don't have enough permissions."
+  "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist, or you don't have enough permissions."
   "command-disabled": "&#F4CA16[ImageEmojis] &#B3BEC4This command is disabled on that server."
   "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."

@@ -12,6 +12,11 @@
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="Scarsz-Nexus" />
+      <option name="name" value="Scarsz-Nexus" />
+      <option name="url" value="https://nexus.scarsz.me/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="maven-central" />
       <option name="name" value="maven-central" />
       <option name="url" value="https://oss.sonatype.org/content/groups/public" />

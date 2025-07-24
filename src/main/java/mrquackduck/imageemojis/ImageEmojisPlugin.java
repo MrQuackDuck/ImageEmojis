@@ -82,18 +82,6 @@ public final class ImageEmojisPlugin extends JavaPlugin {
         }
     }
 
-    public EmojiRepository getEmojiRepository() {
-        return emojiRepository;
-    }
-
-    public String getResourcePackDownloadUrl() {
-        return resourcePackDownloadUrl;
-    }
-
-    public ResourcePack getResourcePack() {
-        return resourcePack;
-    }
-
     private void start() {
         // Save default configuration
         saveDefaultConfig();
@@ -163,5 +151,17 @@ public final class ImageEmojisPlugin extends JavaPlugin {
             if (emojiFolder.mkdirs()) getLogger().info("Created emojis folder.");
             else getLogger().warning("Failed to create emojis folder.");
         }
+    }
+
+    public EmojiRepository getEmojiRepository() {
+        return emojiRepository;
+    }
+
+    public String getResourcePackDownloadUrl() {
+        return resourcePackDownloadUrl;
+    }
+
+    public ResourcePack getResourcePack() {
+        return resourcePack;
     }
 }

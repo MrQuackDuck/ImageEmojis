@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.commands;
+package mrquackduck.imageemojis.server.commands;
 
 import mrquackduck.imageemojis.ImageEmojisPlugin;
 import mrquackduck.imageemojis.configuration.Configuration;

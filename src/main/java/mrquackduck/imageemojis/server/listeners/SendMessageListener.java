@@ -1,4 +1,4 @@
-package mrquackduck.imageemojis.listeners;
+package mrquackduck.imageemojis.server.listeners;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import mrquackduck.imageemojis.ImageEmojisPlugin;

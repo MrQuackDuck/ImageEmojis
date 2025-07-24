@@ -7,10 +7,10 @@
   <a href="https://www.curseforge.com/minecraft/bukkit-plugins/image-emojis"><img src="https://img.shields.io/badge/Curse_Forge-blue.svg?logo=curseforge&color=2A2A2A&logoColor=F16436" /></a>
 </p>
 
- **ImageEmojis** is a **Paper (1.19.4+)** plugin that allows you to add your **custom emojis** on your server.<br>
+**ImageEmojis** is a **Paper (1.19.4+)** plugin that allows you to add your **custom emojis** on your server.<br>
 
 > [!IMPORTANT]
-> The plugin **doesn't support Spigot** yet due to the lack of compatibility with many features of Paper API.
+> The max resolution of an emoji **256x256px**! Emojis should be stored in the **'.png'** format.
 
 ### 👀 Screenshots
 <img height=300 src="https://github.com/user-attachments/assets/df778e85-07ec-4daa-aec3-fa097e7973a7" />
@@ -22,8 +22,8 @@
 <img width=620 src="https://github.com/user-attachments/assets/f78ec57a-aaa7-46bd-a312-db1058e156cf" />
 <img width=620 src="https://github.com/user-attachments/assets/7b0d5d8d-85ed-453f-99db-bbdc8dda5e41" />
 
- ### 💻 Commands
- 
+### 💻 Commands
+
 - `/emojis list` — opens a book with all currently added emojis.
 - `/emojis update` — fetches the latest version of the emojis resource pack from the server. Intended to be used in case when the admin updated emojis and reloaded the plugin while you were playing. _(Alternatively, you can just rejoin and not use this command)_.
 - `/emojis reload` — reloads the plugin. Generates the resource pack based on the `./plugins/ImageEmojis/emojis/` directory.
@@ -38,29 +38,28 @@ Aliases: `/ie`, `/imageemojis`.
 
 ### 🌠 Key features
 
-- **Automated resource pack generation** — the resource pack is generated every time the plugin starts or gets reloaded. The only thing you need to do is provide your server IP in the configuration and open the TCP port on the server _(**5000** by default)_.
-- **Chat suggestions** - emoji suggestions when a player types a message in chat. You can choose from three suggestion modes:
+- **Automated resource pack generation** — the resource pack is generated every time the plugin starts or gets reloaded. The only thing you need to do is to provide your server IP in the configuration and open the TCP port on the server _(**5000** by default)_.
+- **Chat suggestions** - emoji suggestions when a player types a message in chat. You can choose from four suggestion modes:
   - `NONE` - disable chat suggestions.
   - `TEMPLATES` _(set by default)_ - suggest templates of emojis when typing (e.g., **\:clueless:**).
   - `ACTUAL` - suggest actual emojis (their UTF-8 symbols) when typing. (e.g., <img width=16 src="https://github.com/MrQuackDuck/ImageEmojis/blob/master/src/main/resources/pack.png" />).
   - `BOTH` - A combination of "TEMPLATES" and "ACTUAL" modes.
-- Ability to **merge** emojis with your **server resource pack**: you can set the `mergeWithServerResourcePack` field to `true` in the `config.yml` and put your resource pack into the `../ImageEmojis/` directory with the `serverResourcePack.zip` filename _(the filename can be configured)_.
-> [!NOTE]
-> You should disable your resource pack in the `server.properties` if you enabled it earlier.
+- Ability to **merge** emojis with your **server resource pack**: you can set the `mergeWithServerResourcePack` field to `true` in the `config.yml` and put your resource pack into the `../ImageEmojis/` directory with the `serverResourcePack.zip` filename _(the filename can be configured as well)_.
 - **Sign replacement** — you can enable/disable replacement of emoji templates on signs.
 - **Anvil replacement** — you can enable/disable replacement of emoji templates when renaming an item in the anvil.
 - **Command replacement** — you can enable/disable replacement of emoji templates when sending commands. By default, the plugin automatically preprocesses all commands sent by players and changes emoji templates to actual emojis.
+- **Discord integration** - if you have the **[DiscordSRV](https://modrinth.com/plugin/discordsrv)** plugin installed and set up, emoji templates will be translated into appropriate UTF-8 emoji symbols, and UTF-8 symbols will be preprocessed to be displayed correctly in Discord as emojis. This will work with emojis that have the same name both in the game and on the Discord server.
 
 ### 📄 Default config
 > [!CAUTION]
 > **Don't forget** to put your **public IP** into the `serverIp` field.<br>
 > Also, you should **open the TCP port** on your machine for the plugin to work. <i>Port **5000** by default</i>.<br/>
 > **Otherwise, nothing will work.**
-```yml
-# Your public server IP goes here.
+```yaml
+# Your server public IP goes here.
 serverIp: "127.0.0.1"
 
-# The port the resource pack will be hosted on. When the plugin launches, an HTTP server is starting on that port.
+# The port the resource pack will be hosted on. When the plugin launches, an HTTP server starts on that port.
 # It should be opened on the machine so that players can download the resource pack.
 webServerPort: 5000
 
@@ -72,7 +71,7 @@ enforcementPolicy: "OPTIONAL"
 
 # Replace emojis in anvils? (e.g., when renaming items)
 replaceInAnvils: true
-# Replace emojis in signs? (e.g., after editing them)
+# Replace emojis on signs? (e.g., after editing them)
 replaceOnSigns: true
 # Replace emojis when sending a command? (e.g., in the "/msg" or "/say" commands)
 replaceInCommands: true
@@ -86,13 +85,13 @@ noPermAction:
   onSigns: "ERASE_EMOJIS"
   inCommands: "ERASE_EMOJIS"
 
-# Whether the player will see the "Not enough permissions" message.
+# Whether a player will see the "Not enough permissions" message.
 # Will be shown only for events with the "CANCEL_EVENT" action selected.
 noPermMessage: false
 
 # Whether an emoji name should appear when you put your cursor over the emoji symbol in the chat.
 # This feature MAY NOT WORK if you use Spigot-native chat formatters such as "VaultChatFormatter" or "LPC" due to their incompatibility with Paper Components.
-# If you are looking for a simple chat formatter that doesn't break messages, you can consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
+# If you are looking for a simple chat formatter that doesn't break messages, you may consider using mine: https://github.com/MrQuackDuck/PlainChatFormatter
 emojiHoverEnabled: true
 emojiHoverColor: "#AAAAAA"
 
@@ -113,7 +112,7 @@ mergeWithServerResourcePack: false
 # Name of the resource pack to merge "emojis.zip" with.
 mergeServerResourcePackName: "serverResourcePack.zip"
 
-# When you use over ~500 emojis you may see some emojis overlap each other (due to hashing function is limited to certain range).
+# When you use over ~500 emojis, you may see some emojis overlap each other (due to the hashing function being limited to a certain range).
 # If you plan to use many emojis on your server, you may set this value to "true".
 # IMPORTANT: Changing this will reset all existing emoji codes. This means:
 #   - Previously written emojis on signs and item names will appear as invalid symbols;
@@ -125,11 +124,11 @@ messages:
   "only-players": "&cOnly players can use this command!"
   "info-content": "&#F4CA16[ImageEmojis] &#B3BEC4There are currently &#D8E5EC&n%s&r&#B3BEC4 emojis!
     \n &#D8E5EC&n/emojis list&r&#B3BEC4 - see the emojis list.
-    \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during current game session."
+    \n &#D8E5EC&n/emojis update&r&#B3BEC4 - fetch the latest version of the resource pack if it was updated during the current game session."
   "resource-pack-up-to-date": "&#F4CA16[ImageEmojis] &#B3BEC4The resource pack is now up to date!"
   "reloaded": "&#F4CA16[ImageEmojis] &#B3BEC4Reloaded!"
   "not-enough-permissions": "&#F4CA16[ImageEmojis] &#B3BEC4Not enough permissions."
-  "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist or you don't have enough permissions."
+  "command-not-found": "&#F4CA16[ImageEmojis] &cOops! That command doesn't exist, or you don't have enough permissions."
   "command-disabled": "&#F4CA16[ImageEmojis] &#B3BEC4This command is disabled on that server."
   "an-error-occurred": "&#F4CA16[ImageEmojis] &cAn error occurred during reload! Check the console logs for details."
 ```
@@ -147,7 +146,7 @@ messages:
 1. Open a **TCP port** _(**5000** by default)_ on your server equal to the `webServerPort` field from the `config.yml`.
 1. Run the `/emojis reload` command.
 
-**Congrats!** Now you're ready to use the plugin. Put your emojis into the `../ImageEmojis/emojis/` directory, reload the plugin, and enter the `/emojis update` command on your client _(or just rejoin)_!
+> [!NOTE]
+> You should disable your resource pack in `server.properties` if you enabled it earlier.
 
-> [!CAUTION]
-> The max resolution of an emoji **256x256px**!
+**Congrats!** Now you're ready to use the plugin. Put your emojis into the `../ImageEmojis/emojis/` directory, reload the plugin, and enter the `/emojis update` command on your client _(or just rejoin)_!

@@ -10,7 +10,8 @@
 **ImageEmojis** is a **Paper (1.19.4+)** plugin that allows you to add your **custom emojis** on your server.<br>
 
 > [!IMPORTANT]
-> The max resolution of an emoji **256x256px**! Emojis should be stored in the **'.png'** format.
+> The max resolution of an emoji **256x256px**! Emojis should be stored in the **'.png'** format.\
+> Images **shouldn't contain any special symbols** like: `(`, `)`, `[`, `]`, `&`, `^` etc. 
 
 ### 👀 Screenshots
 <img height=300 src="https://github.com/user-attachments/assets/df778e85-07ec-4daa-aec3-fa097e7973a7" />

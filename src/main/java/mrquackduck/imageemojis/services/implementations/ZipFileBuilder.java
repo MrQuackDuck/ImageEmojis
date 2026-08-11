@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
@@ -17,7 +16,8 @@ public class ZipFileBuilder implements IZipBuilder {
     private final Map<String, byte[]> inMemoryStructure;
 
     public ZipFileBuilder() {
-        this.inMemoryStructure = new HashMap<>();
+        // TreeMap guarantees a stable order, so the SHA-1 hash of the zip file remains the same
+        this.inMemoryStructure = new TreeMap<>();
     }
 
     @Override
@@ -82,13 +82,10 @@ public class ZipFileBuilder implements IZipBuilder {
 
     @Override
     public void writeToPath(String path) {
-        // Guarantee a stable order so the SHA-1 hash of the zip file remains the same
-        Map<String, byte[]> sortedStructure = new TreeMap<>(inMemoryStructure);
-
         try (FileOutputStream fos = new FileOutputStream(path);
              ZipOutputStream zos = new ZipOutputStream(fos)) {
 
-            for (Map.Entry<String, byte[]> entry : sortedStructure.entrySet()) {
+            for (Map.Entry<String, byte[]> entry : inMemoryStructure.entrySet()) {
                 ZipEntry zipEntry = new ZipEntry(entry.getKey());
 
                 // Set a constant timestamp for the content of the zip file.

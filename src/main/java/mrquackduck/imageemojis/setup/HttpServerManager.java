@@ -26,7 +26,9 @@ public class HttpServerManager {
         try {
             File resourcePackFile = new File(resourcePackPath);
             IHttpResourcePackServer server = new HttpResourcePackServer(
+                    plugin,
                     config.webServerPort(),
+                    config.webServerThreads(),
                     resourcePackFile,
                     "/" + plugin.getResourcePack().getHashString()
             );

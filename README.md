@@ -64,6 +64,10 @@ serverIp: "127.0.0.1"
 # It should be opened on the machine so that players can download the resource pack.
 webServerPort: 5000
 
+# The number of threads the web server should use for concurrent connections.
+# Do not touch unless you know what you're doing.
+webServerThreads: 4
+
 # Resource pack enforcement policies:
 # NONE - The resource pack won't be loaded on join. This option can fit servers where players prefer to download the resource pack manually.
 # OPTIONAL - Players can decline the resource pack from loading on join.

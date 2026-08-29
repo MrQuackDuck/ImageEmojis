@@ -18,6 +18,10 @@ public class Configuration extends MessageConfigurationBase {
         return getInt("webServerPort");
     }
 
+    public int webServerThreads() {
+        return getInt("webServerThreads");
+    }
+
     public EnforcementPolicy enforcementPolicy() {
         return getEnumValue("enforcementPolicy", EnforcementPolicy.class, EnforcementPolicy.OPTIONAL);
     }
